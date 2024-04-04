@@ -1,8 +1,17 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import './App.css';
+import UserRouter from './Router/UserRouter';
+import AdminRouter from './Router/AdminRouter';
+import {BrowserRouter as Router,Routes, Route} from 'react-router-dom';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path='/*' element={<UserRouter/>}/>
+        <Route path='/admin/*' element={<AdminRouter/>}/>
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;

@@ -1,0 +1,16 @@
+.login {
+    background-image: url(.././public/images/istockphoto-1335295270-612x612.jpg);
+    background-size: cover;
+    height: 100vh;
+  }
+  
+  .signup {
+    background-image: url(.././public/images/istockphoto-1335295270-612x612.jpg);
+    background-size: cover;
+    height: 120vh;
+  }
+  .home {
+    background-image: url(.././public/images/istockphoto-1335295270-612x612.jpg);
+    background-size: cover;
+    height: 120vh; /* Increase the height as needed */
+  }

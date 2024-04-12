@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {useParams} from "react-router-dom";
 import Swal from "sweetalert2";
 import axiosInstanceAdmin   from '../../utils/axiosInstanceAdmin';
+import { Link } from 'react-router-dom';
 
 
 
@@ -172,6 +173,12 @@ function UserDetail(props){
             <span>{users.email}</span>
             </li>
             <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
+            <span style={{ width: '150px', marginRight: '10px' }}>Phone</span>
+            <span style={{ marginRight: '10px' }}>: </span>
+            <span>{users.phone}</span>
+            </li>
+          
+            <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
             <span style={{ width: '150px', marginRight: '10px' }}>Last Login</span>
             <span style={{ marginRight: '10px' }}>: </span>
             <span>{users.last_login}</span>
@@ -182,11 +189,7 @@ function UserDetail(props){
               <input type='checkbox' checked={users.is_active} readOnly />
             </li>
 
-            <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-            <span style={{ width: '150px', marginRight: '10px' }}>is staff</span>
-            <span style={{ marginRight: '10px' }}>: </span>
-            <input type='checkbox' checked={users.is_staff}/>
-            </li>
+        
             <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
             <span style={{ width: '150px', marginRight: '10px' }}>is superuser</span>
             <span style={{ marginRight: '10px' }}>: </span>
@@ -224,4 +227,4 @@ function UserDetail(props){
 }
 
 
-export default UserDetail
+export default UserDetail;

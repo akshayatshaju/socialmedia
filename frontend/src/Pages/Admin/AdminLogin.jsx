@@ -15,11 +15,13 @@ function AdminLogin() {
         }
     }, [navigate]); // Include navigate in the dependency array
 
+    console.log(localStorage.getItem('jwtTokenAdmin'),"tooooken");
+
     const adminlogin = async (credentials) => {
         try {
             const response = await axios.post(baseUrl + login, credentials);
             console.log(response,"response here")
-            if (response.status === 200){
+            if (response.status === 201){
                 navigate('/Admin/AdminDash');
             }
         } catch (error) {

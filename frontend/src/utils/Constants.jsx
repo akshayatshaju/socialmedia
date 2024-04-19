@@ -19,6 +19,7 @@ export const recommended = "posts/recommended";
 export const likecount = "posts/likecount";
 //export const contacts = "posts/contacts";
 export const deletecomment = "posts/deletecomment";
+export const deletereply = "posts/deletereply";
 
 
 export const changeprofile = "api/changeprofile";

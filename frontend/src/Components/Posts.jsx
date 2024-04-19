@@ -315,7 +315,7 @@ function Posts({ username, posts, pic, isMypost }) {
         {/* post listing */}
         <div className='postlisting'>
           {userposts.map((post, index) => (
-            <div key={post} className="post-card border-b border-solid border-black">
+            <div key={index} className="post-card border-b border-solid border-black">
               {post.user.profile_pic ? (
                 <div className="flex items-center"> {/* Container for profile pic and username */}
                   <img src={post.user.profile_pic} className="w-10 h-10 rounded-md mr-2" /> {/* Profile pic */}

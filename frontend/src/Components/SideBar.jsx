@@ -1,4 +1,4 @@
-import { faPhotoFilm, faBookmark, faPeopleGroup, faEnvelope, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPhotoFilm, faBookmark, faPeopleGroup, faEnvelope, faSignOutAlt, faBell, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -51,7 +51,7 @@ function SideBar({ pic, post, user }) {
             </div>
             <div className='savedpost flex items-center py-2 px-4'>
                 <FontAwesomeIcon icon={faBookmark} className="w-6 h-6 text-white" />
-                <Link to='' className="savedpost_text ml-2 text-white" style={{ textDecoration: 'none' }}>Saved Posts</Link>
+                <Link to='/user-saved-posts' className="savedpost_text ml-2 text-white" style={{ textDecoration: 'none' }}>Saved Posts</Link>
             </div>
             <div className='following flex items-center py-2 px-4'>
                 <FontAwesomeIcon icon={faPeopleGroup} className="w-6 h-6 text-white" />
@@ -70,18 +70,24 @@ function SideBar({ pic, post, user }) {
 
             <div className='following flex items-center py-2 px-4'>
                 <FontAwesomeIcon icon={faPeopleGroup} className="w-6 h-6 text-white" />
-                <Link to='/followings'  className="following_text ml-2 text-white" style={{ textDecoration: 'none' }}>
+                <Link to='/followings' className="following_text ml-2 text-white" style={{ textDecoration: 'none' }}>
                     Following
-                    {/* <button className="mr-2 rounded-lg border bg-primary hover:bg-secondary text-white py-1 px-2" onClick={handleFollowerModal}>Followers</button> */}
+
                 </Link>
             </div>
-            {/* {showFollowingModal && (
-                <div className="fixed z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-                    <div className="rounded-lg shadow-md">
-                        <FollowingModal isOpen={showFollowingModal} onClose={handleCloseFollowingModal} />
-                    </div>
-                </div>
-            )} */}
+
+            <div className='messages flex items-center py-2 px-4'>
+                <FontAwesomeIcon icon={faBell} className="w-6 h-6 text-white" />
+                <Link to='' className="messages_text ml-2 text-white" style={{ textDecoration: 'none' }}>Notifications</Link>
+            </div>
+            <div className='messages flex items-center py-2 px-4'>
+                <FontAwesomeIcon icon={faHome} className="w-6 h-6 text-white" />
+                <Link to='/Home' className="messages_text ml-2 text-white" style={{ textDecoration: 'none' }}>Home</Link>
+            </div>
+            <div className='messages flex items-center py-2 px-4'>
+                <FontAwesomeIcon icon={faUser} className="w-6 h-6 text-white" />
+                <Link to='/profile' className="messages_text ml-2 text-white" style={{ textDecoration: 'none' }}>Profile</Link>
+            </div>
             <div className='messages flex items-center py-2 px-4'>
                 <FontAwesomeIcon icon={faEnvelope} className="w-6 h-6 text-white" />
                 <Link to='' className="messages_text ml-2 text-white" style={{ textDecoration: 'none' }}>Messages</Link>

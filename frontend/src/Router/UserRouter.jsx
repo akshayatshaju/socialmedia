@@ -7,6 +7,7 @@ import FollowingListPage from '../Pages/User/FollowingsList';
 import MyPosts from '../Pages/User/MyPosts';
 import Profile from '../Pages/User/Profilepage';
 import FollowersList from '../Pages/User/FollowersList';
+import UserSavedPosts from '../Pages/User/UserSavedPost';
 
 
 
@@ -22,6 +23,7 @@ const UserRouter = () => {
           <Route element={<Profile/>} path="/profile"/>
 
           <Route path='/myposts' element={<MyPosts/>} />
+          <Route path='/user-saved-posts' element={<UserSavedPosts />} />
 
           <Route element={<FollowingListPage/>} path="/followings"/>
           <Route element={<FollowersList/>} path="/followers"/>

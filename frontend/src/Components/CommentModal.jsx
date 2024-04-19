@@ -7,16 +7,15 @@ import createCommentApi from "../api/createCommentApi";
 import CommentDeleteApi from "../api/CommentDeleteApi";
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faUser } from "@fortawesome/free-solid-svg-icons";
-
-
+import { faClose, faUser, faReply} from "@fortawesome/free-solid-svg-icons";
 
 const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
   const [trigger, setTrigger] = useState(false);
   const [hoveredCommentId, setHoveredCommentId] = useState(null);
-  //const accessToken = localStorage.getItem("access_token");
+  const [replyingToCommentId, setReplyingToCommentId] = useState(null); // State to track which comment is being replied to
+  const [replyModalOpen, setReplyModalOpen] = useState(false); // State to manage reply modal visibility
 
   useEffect(() => {
     axiosInstance.get(`${baseUrl}posts/comments/${postId}/`)
@@ -26,7 +25,8 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
       .catch((error) => {
         console.error(error);
       });
-  }, [trigger]);
+  },
+   [trigger]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,18 +47,19 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
     }
   };
 
+
+
+
+
+
   const handleDeleteComment = async (id) => {
     if (id) {
       try {
         console.log("Deleting comment with id:", id);
-
-        // Ensure that `id` is defined when making the DELETE request
         await CommentDeleteApi(id);
-
         toast.success("comment Deleted Successfully!", {
           position: "top-center",
         });
-
         setTrigger(false);
       } catch (error) {
         toast.error("Comment Not Deleted!", {
@@ -68,6 +69,34 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
     }
   };
 
+
+    //reply comment
+  const handleReply = (commentId) => {
+    setReplyingToCommentId(commentId);
+    setReplyModalOpen(true);
+  };
+
+
+  const handleReplySubmit = async (e) => {
+    e.preventDefault();
+    if (replyingToCommentId) {
+      try {
+        // Send the reply to the backend API
+        await createCommentApi(postId, newComment, replyingToCommentId);
+        setTrigger(false);
+        toast.success("Reply Submitted Successfully", {
+          position: "top-center",
+        });
+        setNewComment("");
+        setReplyModalOpen(false); // Close the reply modal
+        onRequestClose(); // Close the comment modal if necessary
+      } catch (error) {
+        toast.error("Failed to Submit Reply", {
+          position: "top-center",
+        });
+      }
+    }
+  };
 
   const modalRef = useRef();
 
@@ -82,8 +111,8 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, []);
-
+  }, 
+  );
   return (
     <Modal
       isOpen={isOpen}
@@ -95,8 +124,6 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
           alignItems: 'center',
           justifyContent: 'center',
           marginLeft: '25%',
-
-
         },
         content: {
           width: '50%',
@@ -106,19 +133,14 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
         },
       }}
     >
-
       <div>
-        <button
-          onClick={onRequestClose}
-        >
+        <button onClick={onRequestClose}>
           <FontAwesomeIcon icon={faClose} />
         </button>
       </div>
-
+  
       <div style={{ paddingLeft: '5%' }}>
-        {console.log(comments, 'comments')}
         {comments.map((comment) => (
-
           <div
             key={comment.id}
             className="mb-4 flex items-center relative group p-2 bg-gray-100 rounded-lg"
@@ -131,34 +153,42 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
                   src={base + comment.user.profile_pic}
                   alt={comment.user.username}
                   style={{ width: '35px', height: '35px', borderRadius: '50%' }}
-                /> : <FontAwesomeIcon icon={faUser} style={{ width: '25px', height: '25px', borderRadius: '50%' }}
-                />}
+                /> :
+                <FontAwesomeIcon icon={faUser} style={{ width: '25px', height: '25px', borderRadius: '50%' }} />
+              }
               <div style={{ display: 'flex' }}>
                 <p style={{ marginRight: '5px', fontWeight: 'semibold' }}>
                   {comment.user.username}
                 </p>
                 <p style={{ fontWeight: 'bold', marginLeft: '-10px', marginTop: '15%' }}>{comment.content}</p>
               </div>
-
             </div>
-
+  
             {hoveredCommentId === comment.id &&
               comment.user.id === user.id && (
-                //<button onClick={() => {setTrigger(true),handleDeleteComment(comment.id)}}>Delete Comment</button>
-                <button onClick={() => { setTrigger(true); handleDeleteComment(comment.id); }}>Delete Comment</button>
-
-
+                <button style={{ backgroundColor: 'red', color: 'white', padding: '5px 10px', borderRadius: '5px', border: 'none', cursor: 'pointer' }}
+                  onClick={() => { setTrigger(true); handleDeleteComment(comment.id); }}>Delete Comment</button>
               )}
+  
+            <span style={{ marginRight: '10px' }}></span>
+  
+            {/* Reply button */}
+            <button
+              className="ml-2"
+              onClick={() => handleReply(comment.id)}
+              style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}
+            >
+              <FontAwesomeIcon icon={faReply} />
+            </button>
           </div>
         ))}
       </div>
+  
       <div style={{ marginTop: '80%', position: 'fixed', width: '90%' }}>
         <form
           onSubmit={(e) => {
             handleSubmit(e);
             setTrigger(true);
-
-
           }}
           className="flex-grow flex items-end"
           style={{ display: 'flex' }}
@@ -168,19 +198,53 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Write a comment..."
             rows="1"
-            style={{ width: '80%' }} />
-          <button
-            type="submit"
-            className="py-2 px-4 ml-4"
-          >comment</button>
+            style={{ width: '80%' }}
+          />
+          <button type="submit" className="py-2 px-4 ml-4">Comment</button>
         </form>
       </div>
+  
+      {/* Reply Modal */}
+      <Modal
+        isOpen={replyModalOpen}
+        onRequestClose={() => setReplyModalOpen(false)}
+        contentLabel="Reply to Comment Modal"
+        style={{
+          overlay: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginLeft: '25%',
+          },
+          content: {
+            width: '50%',
+            border: '3px solid rgba(209, 90, 90, 0.5)',
+            borderRadius: '15px',
+            filter: 'drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5))',
+          },
+        }}
+      >
+        <div>
+          <button onClick={() => setReplyModalOpen(false)}>
+            <FontAwesomeIcon icon={faClose} />
+          </button>
+        </div>
+  
+        <form onSubmit={handleReplySubmit}>
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Write your reply..."
+            rows="3"
+            style={{ width: '90%', margin: '10px auto', resize: 'vertical' }}
+          />
+          <button type="submit" className="py-2 px-4 ml-4">Reply</button>
+        </form>
+      </Modal>
+  
     </Modal>
-
-
-
-  )
-
+  );
+  
 };
 
 export default CommentModal;

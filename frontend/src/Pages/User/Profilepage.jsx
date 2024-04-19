@@ -78,6 +78,11 @@ const Profilepage = () =>  {
   
   
     console.log(userName)
+    console.log('UserName:', userName);
+    console.log('followers:',mypost.followers_count)
+    console.log('followings:',mypost.followings_count)
+    console.log('posts:',mypost.posts_count)
+
     
     
     const handleEditSubmit = async () => {

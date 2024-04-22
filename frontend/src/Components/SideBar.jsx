@@ -1,4 +1,4 @@
-import { faPhotoFilm, faBookmark, faPeopleGroup, faEnvelope, faSignOutAlt, faBell, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faPhotoFilm, faBookmark, faPeopleGroup, faEnvelope, faSignOutAlt, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -76,10 +76,7 @@ function SideBar({ pic, post, user }) {
                 </Link>
             </div>
 
-            <div className='messages flex items-center py-2 px-4'>
-                <FontAwesomeIcon icon={faBell} className="w-6 h-6 text-white" />
-                <Link to='' className="messages_text ml-2 text-white" style={{ textDecoration: 'none' }}>Notifications</Link>
-            </div>
+            
             <div className='messages flex items-center py-2 px-4'>
                 <FontAwesomeIcon icon={faHome} className="w-6 h-6 text-white" />
                 <Link to='/Home' className="messages_text ml-2 text-white" style={{ textDecoration: 'none' }}>Home</Link>

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faUser ,faHome} from '@fortawesome/free-solid-svg-icons';
 import NotificationModal from './NotificationModal';
 import getNotificationsApi from '../api/getNotificationsApi';
+import { Link } from 'react-router-dom';
+import axiosInstance from '../utils/axiosInstance';
+import { baseUrl } from '../utils/Constants';
+import UserSearchDropdown from '../Pages/User/SearchDropdown';
 
 const Navbar = ({ username, pic }) => {
   const [showNotify, setShowNotify] = useState(false);
@@ -68,6 +72,32 @@ const Navbar = ({ username, pic }) => {
     );
   };
 
+   // search for users.....
+   const [showDropdown, setShowDropdown] = useState(false);
+   const [search_user_query,setSearchUserQuery]=useState('')
+   const [searchUsers,setSearchUsers]=useState([])
+  const handleSearch = async()=>{
+     const response = await axiosInstance.get(`${baseUrl}api/search/?query=${search_user_query}`)
+     setSearchUsers(response.data)
+     setShowDropdown(true);
+     console.log(searchUsers)
+     
+  }
+  const handleUserClick = (user) => {
+   
+   console.log('User clicked:', user);
+
+   // Reset search query and hide dropdown after user click
+   setSearchUserQuery('');
+   setShowDropdown(false);
+ };
+ useEffect(() => {
+
+   return () => {
+     setShowDropdown(false);
+   };
+ }, [search_user_query]); 
+
   return (
     <nav className="block w-full px-4 py-2 bg-blue-1000 border-b border-white shadow-md rounded-xl backdrop-filter backdrop-blur-2xl backdrop-saturate-200">
       <div className="container flex items-center justify-between mx-auto text-white">
@@ -97,6 +127,10 @@ const Navbar = ({ username, pic }) => {
                 )}
               </button>
             </li>
+            <div className='messages flex items-center py-2 px-4'>
+                <FontAwesomeIcon icon={faHome} className="w-6 h-6 text-white" />
+                <Link to='/Home' className="messages_text ml-2 text-white" style={{ textDecoration: 'none' }}>Home</Link>
+            </div>
             {showNotify && (
               <div className="notification-modal text-black w-full">
                 <NotificationModal
@@ -108,11 +142,17 @@ const Navbar = ({ username, pic }) => {
               </div>
             )}
             <li className="flex items-center">
-              <input type="search" placeholder="Search" className="px-3 py-1 rounded-md border border-gray-300 text-gray-800" />
+              <input type="search" placeholder="Search..." className="px-3 py-1 rounded-md border border-gray-300 text-gray-800" 
+              value={search_user_query} onChange={(e)=>setSearchUserQuery(e.target.value)}/>
             </li>
             <li className="flex items-center">
-              <button className="px-3 py-1 rounded-md bg-gray-900 text-black">Search</button>
+              <button className="px-3 py-1 rounded-md bg-gray-900 text-white" id="search-addon" onClick={handleSearch}>Search</button>
             </li>
+            {showDropdown && searchUsers.length > 0 && (
+              <div className='searchDrop'>
+            <UserSearchDropdown users={searchUsers} handleUserClick={handleUserClick} isadmin={false}/>
+            </div>
+          )}  
           </ul>
         </div>
       </div>

@@ -17,13 +17,18 @@ export const like = "posts/likepost";
 export const deletepost = "posts/deletepost";
 export const recommended = "posts/recommended";
 export const likecount = "posts/likecount";
-//export const contacts = "posts/contacts";
+export const contacts = "posts/contacts";
 export const deletecomment = "posts/deletecomment";
 export const deletereply = "posts/deletereply";
 
 
 export const changeprofile = "api/changeprofile";
 export const editprofile = "api/editprofile";
+
+
+//chat
+export const create_room = "chat/create-room";
+export const chat_room = "chat/chat-room";
 
 //admin side
 export const registeredUsers = "myAdmin/registeredUsers";

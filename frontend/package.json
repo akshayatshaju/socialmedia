@@ -25,8 +25,10 @@
     "react-toastify": "^10.0.5",
     "rsuite": "^5.59.0",
     "slick-carousel": "^1.8.1",
+    "stream-chat-react": "^11.1.1",
     "sweetalert2": "^11.10.7",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "websocket": "^1.0.34"
   },
   "scripts": {
     "start": "react-scripts start",

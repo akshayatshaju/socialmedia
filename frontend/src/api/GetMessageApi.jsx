@@ -1,18 +1,15 @@
-import { baseUrl, contacts } from "../utils/Constants";
 import axiosInstance from "../utils/axiosInstance";
+import { baseUrl } from "../utils/Constants";
 
-
-const ContactListAPI = async () => {
+const GetChatMessages = async (roomId) => {
     try {
-      const response = await axiosInstance.get(baseUrl+contacts, {
+      const response = await axiosInstance.get(`${baseUrl}chat/chat-room/${roomId}/`, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
       });
-      console.log(response,'contacts')
       if  (response.status === 200) {
-        
           return response.data;
       } else {
           console.log(response.error)
@@ -23,4 +20,5 @@ const ContactListAPI = async () => {
     }
   };
   
-  export default ContactListAPI;
+  export default GetChatMessages;
+  

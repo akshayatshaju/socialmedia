@@ -21,6 +21,7 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
     axiosInstance.get(`${baseUrl}posts/comments/${postId}/`)
       .then((response) => {
         setComments(response.data);
+        console.log(response.data, "response")
       })
       .catch((error) => {
         console.error(error);

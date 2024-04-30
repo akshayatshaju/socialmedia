@@ -75,6 +75,7 @@ const Chat = () => {
 
 
     const handleSendMessage = () => {
+        console.log("messageeentered");
         if (ws && ws.readyState === WebSocket.OPEN && inputMessage.trim() !== "") {
             console.log(inputMessage, "input messagee")
             ws.send(JSON.stringify({ message: inputMessage }));
@@ -88,7 +89,9 @@ const Chat = () => {
     const joinChatroom = async (userId) => {
         try {
             const data = await CreateChatRoomAPI(userId);
+        console.log("userid",data);
             const accessToken = localStorage.getItem("jwtToken");
+        
             const websocketProtocol =
                 window.location.protocol === "https:" ? "wss://" : "ws://";
 
@@ -148,7 +151,7 @@ const Chat = () => {
 
     return (
         <>
-            <div className='home'>
+            <div className>
                 <Navbar />
                 <div className='flex flex-row'>
 

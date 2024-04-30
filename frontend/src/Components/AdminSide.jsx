@@ -16,10 +16,7 @@ function AdminSide() {
         
         <Link to='/Admin/posts' className="followers_text ml-2 text-white" style={{ textDecoration: 'none' }}>PostsManage</Link>
       </div>
-      <div className='following flex items-center py-2 px-4'>
-        
-        <Link to='' className="following_text ml-2 text-white" style={{ textDecoration: 'none' }}>CommentManage</Link>
-      </div>
+      
       
     </div>
   );

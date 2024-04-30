@@ -116,20 +116,22 @@ function UserDetail(props){
       });
     };
     return(
-        <div>
+        <div className='admin'>
             <AdminNav/>
             <div className= 'flex justify-start'>
             <AdminSide/>
             
-            <div className="details_box" style={{
+            <div className="details_box rounded-lg" style={{
                 
-                marginLeft:'350px',
-                marginTop:'100px',
-                width:'70%',
+                marginLeft:'200px',
+                marginTop:'90px',
+                width:'50%',
                 height:'500px',
                 overflowX: 'auto',
+                backgroundColor: 'skyblue'
+                
             }}>
-             <div className='user_profile'>
+             <div className='user_profile p-2'>
                 {users.profile_pic?<img src={base + users.profile_pic} alt="profile" style={{
                     width: '50px',
                     height: '50px',
@@ -163,9 +165,9 @@ function UserDetail(props){
             <span>{users.username}</span>
             </li>
             <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-            <span style={{ width: '150px', marginRight: '10px' }}>Joining Date</span>
+            <span style={{ width: '150px', marginRight: '10px' }}>ID</span>
             <span style={{ marginRight: '10px' }}>: </span>
-            <span>{users.date_joined}</span>
+            <span>{users.id}</span>
             </li>
             <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
             <span style={{ width: '150px', marginRight: '10px' }}>Email</span>
@@ -201,21 +203,15 @@ function UserDetail(props){
             </li>
             </ul>
 
-            {/* {!userdeleted&&<button style={{
-                backgroundColor:'#FF5252',
-                border:'5px solid #FF5252',
-                marginLeft:'35%',
-                marginRight:'5%',
-                marginTop:'20px',
-                width:'100px',
-                borderRadius:'5px'
-                }}
-                onClick={() => handleDeleteUser(users.id)}>Delete</button>} */}
+         
             <button style={{
-                backgroundColor:'#808080',
+                backgroundColor:'grey',
                 border:'5px solid #808080',
                 width:'100px',
-                borderRadius:'5px'
+                borderRadius:'5px',
+                marginLeft: '50px'
+                
+                
                 }}
                 onClick={() => handleBlockUser(users.id)}>{users.is_active ? "Block" : "Unblock"}</button>
              </div>

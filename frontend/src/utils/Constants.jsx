@@ -35,6 +35,7 @@ export const registeredUsers = "myAdmin/registeredUsers";
 export const userdetail = "myAdmin/userdetail";
 export const deleteuser = "myAdmin/deleteuser";
 export const blockuser = "myAdmin/blockuser";
-export const userposts = "myadmin/adminuserposts";
-export const userpostsdetails = "myadmin/adminuserpostsdetails";
-export const deletepostadmin = "myadmin/deletepost";
+export const userposts = "myAdmin/adminuserposts";
+export const userpostsdetails = "myAdmin/adminuserpostsdetails";
+export const deletepostadmin = "myAdmin/deletepost";
+

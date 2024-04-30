@@ -4,104 +4,127 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { baseUrl, userposts } from '../../utils/Constants';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate, useParams,Link   } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axiosInstanceAdmin from '../../utils/axiosInstanceAdmin';
-
-function AdminUserPosts(props){
-    
-
-    const navigate = useNavigate()
-    const [posts,setPosts] = useState([])
-    
-    console.log(posts,"posts")
-   
-
-    const {userEmail} = useParams()
-    console.log(userEmail,"got user email")
+import { Card, Typography } from "@material-tailwind/react";
 
 
+function AdminUserPosts(props) {
 
-    useEffect(() => {
-      axiosInstanceAdmin.get(`${baseUrl}${userposts}/${userEmail}`)
-        .then(response => {
-          setPosts(response.data);
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching post details:', error);
 
-        });
-    }, [userEmail]);
-  
-  
-  const handlePostDetails = (id)=>{
-    
+  const navigate = useNavigate()
+  const [posts, setPosts] = useState([])
+
+  console.log(posts, "posts")
+
+
+  const { userEmail } = useParams()
+  console.log(userEmail, "got user email")
+
+
+
+  useEffect(() => {
+    axiosInstanceAdmin.get(`${baseUrl}${userposts}/${userEmail}`)
+      .then(response => {
+        setPosts(response.data);
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching post details:', error);
+
+      });
+  }, [userEmail]);
+
+
+  const handlePostDetails = (id) => {
+
     navigate(`/admin/admin_user_posts_details/${id}`)
   }
-    
-
-
-      // Function to format date using Intl.DateTimeFormat
-      const formatCreatedAt = (createdAt) => {
-        return new Intl.DateTimeFormat('en-IN', {
-            day: 'numeric',
-            month: 'numeric',
-            year: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            hour12: false,
-        }).format(new Date(createdAt));
-    };
-    return(
-        <div>
-            
-            <AdminNav/>
-            <div className= 'flex justify-start'>
-            <AdminSide/>
-            <div style={{color:'black',fontSize:'15px',marginLeft:'25%',marginTop:'5%'}}>
-     
-     <h2>{posts.user} List</h2>
-     </div>
-
-     <ol style={{
-       display:'flex',
-       flexDirection:'column',
-       marginLeft:'30%',
-       marginTop:'2%',
-       overflow:'scroll'
-      
-     }}>
-               {posts.map((p, index) => (
-         <li className='mb-2' key={p.id}>
-          
-             <span
-               style={{
-                 backgroundColor: 'transparent',
-                 textDecoration: 'none',
-                 color: 'blue',
-                 transformOrigin: 'center',
-                 display: 'inline-block',
-               }}
-               onMouseOver={(e) => (e.currentTarget.style.color = 'black',e.currentTarget.style.cursor = 'pointer')}
-               onMouseOut={(e) => (e.currentTarget.style.color = 'blue')}
-               onClick={()=>handlePostDetails(p.id)}
-             >
-               {p.caption}---{formatCreatedAt(p.created_at)}
-             </span>
-          
-         </li>
-       ))}
 
 
 
-     </ol>
+  // Function to format date using Intl.DateTimeFormat
+  const formatCreatedAt = (createdAt) => {
+    return new Intl.DateTimeFormat('en-IN', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: false,
+    }).format(new Date(createdAt));
+  };
+  return (
+    <div className='admin'>
+      <AdminNav />
+      <div className="flex justify-start">
+        <AdminSide />
+        <Card className=" h-75 ml-[10rem] w-50 overflow-scroll  bg-slate-300">
+          <div className='flex flex-col'>
+            <div className="text-black text-base ml-5 mt-3">
+              <h2 className="text-red-500 text-2xl ml-auto mt-3">{posts.user}Post List</h2>
+            </div>
 
-        </div>
-        </div>
-    )
+            <table className="mt-8">
+              <thead>
+                <tr>
+                  <th className="border-b border-blue-gray-100 bg-blue-500 p-4">
+                    <Typography
+                      variant="large"
+                      color="white"
+                      className="font-normal leading-none opacity-70"
+                    >
+                      Users Post Captions
+                    </Typography>
+                  </th>
+                  {/* <th className="border-b border-blue-gray-100 bg-blue-700 p-4">
+                    <Typography
+                      variant="large"
+                      color="white"
+                      className="font-normal leading-none opacity-70"
+                    >
+                      Email
+                    </Typography>
+                  </th> */}
+                </tr>
+              </thead>
+              <tbody className="flex flex-col ml-1">
+                {posts.map((p, index) => (
+                  <tr key={p.id} className="mb-2">
+                    <td className="p-4">{index + 1}</td>
+                    <td>
+                      <span
+                        style={{
+                          backgroundColor: 'transparent',
+                          textDecoration: 'none',
+                          color: 'black',
+                          transformOrigin: 'center',
+                          display: 'inline-block',
+                        }}
+                        onMouseOver={(e) => (e.currentTarget.style.color = 'black', e.currentTarget.style.cursor = 'pointer')}
+                        onMouseOut={(e) => (e.currentTarget.style.color = 'blue')}
+                        onClick={() => handlePostDetails(p.id)}
+                      >
+                        {p.caption}---{formatCreatedAt(p.created_at)}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+          </div>
+        </Card>
+
+
+
+      </div>
+    </div>
+  );
+
 }
 
 
-export default AdminUserPosts
+export default AdminUserPosts;

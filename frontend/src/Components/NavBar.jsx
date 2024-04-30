@@ -128,8 +128,8 @@ const Navbar = ({ username, pic }) => {
               </button>
             </li>
             <div className='messages flex items-center py-2 px-4'>
-                <FontAwesomeIcon icon={faHome} className="w-6 h-6 text-white" />
-                <Link to='/Home' className="messages_text ml-2 text-white" style={{ textDecoration: 'none' }}>Home</Link>
+                <FontAwesomeIcon icon={faHome} className="w-6 h-6 text-black" />
+                <Link to='/Home' className="messages_text ml-2 text-black" style={{ textDecoration: 'none' }}>Home</Link>
             </div>
             {showNotify && (
               <div className="notification-modal text-black w-full">

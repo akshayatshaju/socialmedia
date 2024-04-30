@@ -2,7 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { baseUrl, login } from '../../utils/Constants';
 import { useNavigate } from 'react-router-dom';
-//import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
+
 
 
 function AdminLogin() {
@@ -11,21 +12,34 @@ function AdminLogin() {
     useEffect(() => {
         const isLoggedIn = localStorage.getItem('jwtTokenAdmin');
         if (isLoggedIn) {
-            navigate('/Admin/AdminDash');  // Redirect to the homepage
+            navigate('/admin/AdminDash');  // Redirect to the homepage
         }
-    }, [navigate]); // Include navigate in the dependency array
+    }, [])// Include navigate in the dependency array
 
-    console.log(localStorage.getItem('jwtTokenAdmin'),"tooooken");
+
+    console.log(localStorage.getItem('jwtTokenAdmin'), "tooooken");
 
     const adminlogin = async (credentials) => {
         try {
             const response = await axios.post(baseUrl + login, credentials);
-            console.log(response,"response here")
-            if (response.status === 201){
-                navigate('/Admin/AdminDash');
+            console.log(response, "response here");
+            const decodedToken = jwtDecode(response?.data?.access);
+            console.log(decodedToken.is_superuser)
+            if (decodedToken.is_superuser) {
+                localStorage.setItem('jwtTokenAdmin', response.data.access);
+                localStorage.setItem('refreshjwtTokenAdmin', response.data.refresh);
+
+                console.log("saved succesfully")
+                navigate('/admin/AdminDash');
             }
-        } catch (error) {
-            alert("Wrong credentials");
+            else {
+                alert("Not a superuser")
+            }
+
+
+        }
+        catch (error) {
+            alert("wrong credentials")
             console.error(error);
         }
     };
@@ -35,36 +49,44 @@ function AdminLogin() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log(email_or_username, password, "state")
+
         const formData = {
-            email_or_username,
-            password
+            email_or_username, password
         };
+
+        // Call your login function
         await adminlogin(formData);
+
     };
 
     return (
-        <div className="loginbox w-1/2 h-[407px] absolute left-1/4 top-[123px] bg-blue-500 border-2 shadow-md">
-            <h1 className="admin_title text-xl font-bold text-black absolute top-0 right-1/2 mt-4">Admin Login</h1>
-            <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center h-full">
-                <input
-                    type='text'
-                    className='adminemail form-control  h-11 w-4/5  border-2 rounded-md px-3 py-2 my-4'
-
-                    placeholder='Email.......'
-                    value={email_or_username}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                    type='password'
-                    className='adminpassword form-control w-4/5 h-11 border-2 rounded-md px-3 py-2 my-4'
-                    placeholder='Password.......'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button className='admin_login btn w-36 h-12 rounded-md border-2 bg-grey-700 text-black font-semibold mt-4' type='submit'>Login</button>
+        <div className=' admin flex justify-center items-center h-vh'>
+          <div className="loginbox w-full md:w-[400px] bg-blue-400 border-2 shadow-md rounded-lg p-8">
+            <h1 className="admin_title text-xl font-bold text-black text-center mb-4">Admin Login</h1>
+            <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
+              <input
+                type='text'
+                className='adminemail form-control w-full h-11 border-2 rounded-md px-3 py-2 my-2'
+                placeholder='Email...'
+                value={email_or_username}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{ fontSize: '20px' }}
+              />
+              <input
+                type='password'
+                className='adminpassword form-control w-full h-11 border-2 rounded-md px-3 py-2 my-2'
+                placeholder='Password...'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={{ fontSize: '20px' }}
+              />
+              <button className='bg-blue-500 text-white font-semibold px-4 py-2 rounded-md mt-4' type='submit'>Login</button>
             </form>
+          </div>
         </div>
-    );
+      );
+      
 }
 
 export default AdminLogin;

@@ -14,5 +14,11 @@
     background-size: cover;
     height: 120vh; /* Increase the height as needed */
   }
+  .admin {
+    background-image: url(.././public/images/istockphoto-1437053346-2048x20489.jpg);
+    background-size: cover;
+    height: 100vh; /* Increase the height as needed */
+  }
+ 
  
   

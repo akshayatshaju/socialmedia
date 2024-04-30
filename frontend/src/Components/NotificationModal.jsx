@@ -75,7 +75,7 @@ const NotificationModal = ({ isVisible, onClose, notification, removeNotificatio
                 >
                     x
                 </button>
-                <div className="bg-white rounded w-full">
+                <div className="bg-blue-100 rounded w-full">
                     <div className=''>
                         <ul className="mt-2 overflow-y-scroll h-96">
                             {notification && notification?.length > 0 ? (

@@ -9,6 +9,7 @@ import Profile from '../Pages/User/Profilepage';
 import FollowersList from '../Pages/User/FollowersList';
 import UserSavedPosts from '../Pages/User/UserSavedPost';
 import Chat from '../Components/Chatting';
+import ProfileOfOthers from '../Components/ProfileOfOthers';
 
 
 
@@ -17,7 +18,7 @@ const UserRouter = () => {
     return (
     
           <Routes>
-          <Route path='/Login' element={<Login/>}/>
+          <Route path='/' element={<Login/>}/>
           <Route path='/SignUp' element={<SignUp/>}/>
           <Route path='/Home' element={<Home/>}/>
 
@@ -29,6 +30,7 @@ const UserRouter = () => {
           <Route element={<FollowingListPage/>} path="/followings"/>
           <Route element={<FollowersList/>} path="/followers"/>
           <Route element={<Chat/>} path="/Chat"/>
+          <Route path="/authors/:id" element={<ProfileOfOthers/>} />
 
           
   

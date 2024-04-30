@@ -81,23 +81,7 @@ const BarChart = () => {
     <div>
       <AdminNav />
 
-      {/* <AdminSide/>
-    
-   
-    
       
-       
-        {loading ?
-         (
-          <p className="text-center">Loading...</p>
-        ) : (
-          <div>
-          <h3 style={{marginLeft:'30%',marginTop:'4%'}}>User Joining Month Statistics</h3>
-          <div className="bg-red p-5 rounded-lg" style={{ maxWidth: '600px', margin: 'auto',border:'2px solid #D0D4D5' }}>
-            <Line data={data} height={400} options={options} />
-          </div>
-          </div>
-        )} */}
       <div className="flex flex-col lg:flex-row">
      
         <AdminSide />

@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose , faUser} from "@fortawesome/free-solid-svg-icons";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//import CommentDeleteApi from "../api/CommentDeleteApi";
+import CommentDeleteApi from "../../api/CommentDeleteApi";
 
 function AdminUserPostsDetails() {
     const navigate = useNavigate();
@@ -122,18 +122,19 @@ const handleDeleteComment = async (id) => {
   };
 
   return(
-    <div>
+    <div className="admin">
         
         <AdminNav/>
         <div className= 'flex justify-start'>
         <AdminSide/>
 
         <div className="details_box" style={{
-                marginLeft: '350px',
+                marginLeft: '200px',
                 marginTop: '100px',
-                width: '70%',
+                width: '50%',
                 height: '500px',
                 overflowX: 'auto',
+                backgroundColor: 'skyblue'
             }}>
                 
       

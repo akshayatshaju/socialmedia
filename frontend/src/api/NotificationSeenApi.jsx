@@ -1,11 +1,11 @@
-import axios from 'axios';
+//import axios from 'axios';
 
 import axiosInstance from '../utils/axiosInstance';
 import { baseUrl } from '../utils/Constants';
 
 const notificationSeenApi = async (notificationId) =>  {
   try {
-    const accessToken = localStorage.getItem('access_token');
+    //const accessToken = localStorage.getItem('access_token');
 
     // Make sure to include the 'Content-Type' header and remove extra object nesting
     const response = await axiosInstance.post(

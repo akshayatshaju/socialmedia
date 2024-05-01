@@ -1,72 +1,76 @@
-import React, { useState } from "react";
-import Cropper from "react-easy-crop";
+import React, { useState, useRef } from 'react';
+import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
+import { useNavigate } from 'react-router-dom';
 
-function ImageCropper({ image, onCropDone, onCropCancel }) {
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [croppedArea, setCroppedArea] = useState(null);
-  const [aspectRatio, setAspectRatio] = useState(4 / 3);
+const ImageCropper = ({ src, onCropComplete }) => {
+  const [crop, setCrop] = useState();
+  const [imageRef, setImageRef] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const imgRef = useRef(null);
+  const navigate = useNavigate()
 
-  const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
-    setCroppedArea(croppedAreaPixels);
+  const onImageLoaded = (image) => {
+    setImageRef(image);
   };
 
-  const onAspectRatioChange = (event) => {
-    setAspectRatio(event.target.value);
+  const onCropChange = (newCrop) => {
+    setCrop(newCrop);
+  };
+
+  const getCroppedImg = async () => {
+    if (imageRef && crop.width && crop.height) {
+      const croppedImageBlob = await getCroppedBlob(imageRef, crop, 'image/jpeg');
+      setCroppedImage(URL.createObjectURL(croppedImageBlob));
+      onCropComplete(croppedImageBlob);
+      console.log("finish")
+  
+     
+    }
+  };
+  
+
+  const getCroppedBlob = (image, crop, mimeType) => {
+    return new Promise((resolve, reject) => {
+      const canvas = document.createElement('canvas');
+      const scaleX = image.naturalWidth / image.width;
+      const scaleY = image.naturalHeight / image.height;
+      canvas.width = crop.width;
+      canvas.height = crop.height;
+      const ctx = canvas.getContext('2d');
+
+      ctx.drawImage(
+        image,
+        crop.x * scaleX,
+        crop.y * scaleY,
+        crop.width * scaleX,
+        crop.height * scaleY,
+        0,
+        0,
+        crop.width,
+        crop.height
+      );
+
+      canvas.toBlob((blob) => {
+        resolve(blob);
+      }, mimeType);
+    });
   };
 
   return (
-    <div className="cropper">
-      <div>
-        <Cropper
-          image={image}
-          aspect={aspectRatio}
-          crop={crop}
-          zoom={zoom}
-          onCropChange={setCrop}
-          onZoomChange={setZoom}
-          onCropComplete={onCropComplete}
-          style={{
-            containerStyle: {
-              width: "100%",
-              height: "80%",
-              backgroundColor: "#fff",
-            },
-          }}
+    <div style={{ maxWidth: '80%', overflow: 'hidden', margin: '0 auto' }}>
+      <ReactCrop
+        src={src}
+        crop={crop}
+        onImageLoaded={onImageLoaded}
+        onChange={onCropChange}
+        ref={imgRef}
+        style={{ maxWidth: '100%', maxHeight: '80%'}}
         />
-      </div>
-
-      <div className="action-btns" style={{
-        marginTop:'800px'
-      }}>
-        <div className="aspect-ratios" onChange={onAspectRatioChange}>
-          <input type="radio" value={1 / 1} name="ratio" /> 1:1
-          <input type="radio" value={5 / 4} name="ratio" /> 5:4
-          <input type="radio" value={4 / 3} name="ratio" /> 4:3
-          <input type="radio" value={3 / 2} name="ratio" /> 3:2
-          <input type="radio" value={5 / 3} name="ratio" /> 5:3
-          <input type="radio" value={16 / 9} name="ratio" /> 16:9
-          <input type="radio" value={3 / 1} name="ratio" /> 3:1
-        </div>
-
-        <button className="btn btn-outline" onClick={onCropCancel}>
-          Cancel
-        </button>
-
-        <button
-          className="btn"
-          onClick={() => {
-            onCropDone(croppedArea);
-          }}
-          style={{
-backgroundColor:'red'
-          }}
-        >
-          Done
-        </button>
-      </div>
+      <button onClick={getCroppedImg}>Crop</button>
+      
     </div>
   );
-}
+};
 
 export default ImageCropper;

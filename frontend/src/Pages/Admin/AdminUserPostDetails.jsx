@@ -107,7 +107,7 @@ const handleDeleteComment = async (id) => {
         confirmButtonText: "Yes",
       }).then((result) => {
         if (result.isConfirmed) {
-          const url = `${baseUrl}myadmin/deletecomment/${id}/`;
+          const url = `${baseUrl}myAdmin/deletecomment/${id}/`;
           axiosInstanceAdmin
             .delete(url)
             .then((res) => {

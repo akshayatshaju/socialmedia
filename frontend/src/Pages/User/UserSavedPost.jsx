@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../../Components/NavBar';
 import SideBar from '../../Components/SideBar';
 import Posts from '../../Components/Posts';
-import {  baseUrl ,like,deletepost,mypost,user } from '../../utils/Constants';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser ,faHeart,faBookmark,faShare, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {  baseUrl,user } from '../../utils/Constants';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faUser ,faHeart,faBookmark,faShare, faTrash} from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from '../../utils/axiosInstance';
-import { Link ,useParams} from 'react-router-dom';
-import axios from 'axios';
+// import { Link ,useParams} from 'react-router-dom';
+// import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const UserSavedPosts = () => {
-  const [postlike, setLike] = useState(null);
+  //const [postlike, setLike] = useState(null);
   const [posts, setPosts] = useState([]);
   const [userName, setUserName] = useState([]);
 

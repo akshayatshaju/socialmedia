@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { baseUrl, register } from '../../utils/Constants';
+//import FileUploader from '../../Components/FileUploader';
 
 function SignUp() {
     const navigate = useNavigate();
@@ -127,7 +128,7 @@ function SignUp() {
                         <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Account</button>
                     </form>
                     <p className="text-center mt-3">
-                        Already have an account? <Link className="text-blue-500" to="/Login">Sign in here</Link>
+                        Already have an account? <Link className="text-blue-500" to="/">Sign in here</Link>
                     </p>
                 </div>
             </div>
@@ -137,7 +138,7 @@ function SignUp() {
                     <div className="bg-white rounded-lg shadow-lg p-6">
                         <h2 className="text-2xl text-green-600 mb-4">Success!</h2>
                         <p className="text-gray-800 mb-4">Your account has been successfully created.</p>
-                        <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onClick={() => navigate('/Login')}>Login</button>
+                        <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onClick={() => navigate('/')}>Login</button>
                         <button className="bg-transparent text-gray-700 px-4 py-2 rounded hover:text-gray-900 ml-4" onClick={() => setShowSuccessModal(false)}>Close</button>
                     </div>
                 </div>

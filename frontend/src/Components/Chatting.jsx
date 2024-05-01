@@ -153,11 +153,12 @@ const Chat = () => {
         <>
             <div className>
                 <Navbar />
-                <div className='flex flex-row'>
+                <div className='flex flex-row '>
 
-                    <div className="col-6 side_chat">
+                    <div className="col-6 side_chat overflow-x-scroll">
 
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div 
+                        style={{ display: 'flex', flexDirection: 'column' }}>
                             {profiles
                                 ? profiles.map((profile) => (
                                     <div

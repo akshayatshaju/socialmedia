@@ -14,7 +14,7 @@ function SideBar({ pic, post, user }) {
     const handleUserLogout = () => {
         localStorage.removeItem('jwtToken');
         localStorage.removeItem('refreshjwtToken');
-        navigate('/Login');
+        navigate('/');
     }
     // const [showFollowerModal, setShowFollowerModal] = useState(false);
     // const [showFollowingModal, setShowFollowingModal] = useState(false);

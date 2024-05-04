@@ -27,7 +27,6 @@ import { Loader } from "rsuite";
 import Modal from "react-modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import ImageCropper from "../../Components/ImageCropper";
 import ReactBootstrapModal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -37,8 +36,7 @@ const Profilepage = () => {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // New loading state
-  const [croppedImage, setCroppedImage] = useState(null);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -145,39 +143,31 @@ const Profilepage = () => {
   };
 
   const handleCloseModal = () => {
-    setCroppedImage(null);
+
     setSelectedPhoto(null);
     setIsModalOpen(false);
   };
 
   const handlePhotoChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedPhoto(file);
-    console.log(selectedPhoto,"this is the selected photo");
-    setCroppedImage(null); // Reset cropped image when a new photo is selected
+
+    setSelectedPhoto(event.target.files[0]);
+    console.log(event.target.files[0],"and",selectedPhoto,"this is the selected photo");
+    
   };
 
-  const handleCrop = (cropped) => {
-    const croppedURL = URL.createObjectURL(cropped);
-    setCroppedImage(croppedURL);
-    setSelectedPhoto(null);
-  };
+
 
   const handlePhotoSubmit = async () => {
     console.log("submitbutton clicked");
     const formData = new FormData();
-    if (croppedImage) {
+    if (selectedPhoto) {
       // Create a FormData object
       const formData = new FormData();
+
+      formData.append("profile_pic", selectedPhoto);
       
 
-      const croppedImageData = await (async () => {
-        const response = await fetch(croppedImage);
-        const blob = await response.blob();
-        const fileName = "croppedImage.png"; // You can generate a unique filename here
-        formData.append("profile_pic", blob, fileName);
-        return { blob, fileName };
-      })();
+      
 
       // Make the PATCH request with the FormData
       axiosInstance
@@ -224,10 +214,10 @@ const Profilepage = () => {
       <div className="home">
         <Navbar
           username={userName ? userName.username : ""}
-          pic={userName ? userName.profile_pic : ""}
+          pic={userName ? baseUrl+userName.profile_pic : ""}
         />
         <div className="flex flex-row">
-          <SideBar pic={userName ? userName.profile_pic : ""} />
+          <SideBar pic={userName ? baseUrl+userName.profile_pic : ""} />
           <div>
             {userName ? (
               <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-8 mt-8">
@@ -236,8 +226,8 @@ const Profilepage = () => {
                     {userName.profile_pic ? (
                       <img
                         className="rounded-circle w-32 h-32 object-cover border-4 border-white mx-auto mb-4"
-                        src={userName.profile_pic}
-                        alt="User Profile"
+                        src={userName.profile_pic ? base+userName.profile_pic:""}
+                        alt="Profile"
                         style={{
                           width: "100px",
                           height: "100px",
@@ -355,19 +345,8 @@ const Profilepage = () => {
                   onChange={handlePhotoChange}
                   className="mb-4"
                 />
-                {selectedPhoto && (
-                  <ImageCropper
-                    src={URL.createObjectURL(selectedPhoto)}
-                    onCropComplete={handleCrop}
-                  />
-                )}
-                {croppedImage && (
-                  <img
-                    src={croppedImage}
-                    alt="Cropped Profile Pic"
-                    className="mx-auto mt-4 w-32 h-32 rounded-full"
-                  />
-                )}
+              
+             
                 <div className="flex justify-center mt-4">
                   <button
                     className="btn px-4 py-2 text-lg border  border-black rounded-md focus:outline-none"

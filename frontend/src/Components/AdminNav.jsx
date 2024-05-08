@@ -11,7 +11,7 @@ function AdminNav() {
   const handleLogout = () => {
     localStorage.removeItem('jwtTokenAdmin');
     localStorage.removeItem('refreshjwtTokenAdmin');
-    navigate('/Admin/AdminLogin');
+    navigate('/admin/AdminLogin');
   };
 
   const [search_user_query, setSearchUserQuery] = useState('');
@@ -43,7 +43,7 @@ function AdminNav() {
           </ul>
         </div>
         <div className='admin_logout'>
-        <Link to="/Admin/AdminLogin" onClick={handleLogout} className='logout_link  text-white' style={{ textDecoration: 'none' }}>Log Out</Link>
+        <Link to="/admin/AdminLogin" onClick={handleLogout} className='logout_link  text-white' style={{ textDecoration: 'none' }}>Log Out</Link>
         </div>
       </div>
     </nav>

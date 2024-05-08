@@ -12,7 +12,7 @@ function AdminLogin() {
     useEffect(() => {
         const isLoggedIn = localStorage.getItem('jwtTokenAdmin');
         if (isLoggedIn) {
-            navigate('/admin/AdminDash');  // Redirect to the homepage
+            navigate('/admin/AdminLogin');  // Redirect to the homepage
         }
     }, [])// Include navigate in the dependency array
 

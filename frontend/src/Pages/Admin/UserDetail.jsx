@@ -65,7 +65,7 @@ function UserDetail(props){
     //           .then((res) => {
     //             console.log("user deleted");
     //             setUserdeleted(true)
-    //             navigate('/Admin/AdminDash')
+    //             navigate('//AdminDash')
     //           })
     //           .catch((error) => {
     //             console.log(error);

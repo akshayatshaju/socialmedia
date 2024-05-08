@@ -25,6 +25,9 @@ export const deletereply = "posts/deletereply";
 export const changeprofile = "api/changeprofile";
 export const editprofile = "api/editprofile";
 
+export const sentotp = "api/sentotp";
+export const verifyotp = "api/verifyotp";
+
 
 //chat
 export const create_room = "chat/create-room";

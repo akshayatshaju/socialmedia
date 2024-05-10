@@ -1,11 +1,9 @@
 import AdminNav from "../../Components/AdminNav";
 import AdminSide from "../../Components/AdminSide";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { baseUrl, userposts } from "../../utils/Constants";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import Swal from "sweetalert2";
 import axiosInstanceAdmin from "../../utils/axiosInstanceAdmin";
 import { Card, Typography } from "@material-tailwind/react";
 

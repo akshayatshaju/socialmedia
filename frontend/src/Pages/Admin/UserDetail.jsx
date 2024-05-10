@@ -128,7 +128,7 @@ function UserDetail(props){
                 width:'50%',
                 height:'500px',
                 overflowX: 'auto',
-                backgroundColor: 'skyblue'
+                backgroundColor: 'ButtonShadow'
                 
             }}>
              <div className='user_profile p-2'>
@@ -145,7 +145,7 @@ function UserDetail(props){
                    marginRight:'20px'
                 
                 }} />}
-                <span style={{fontSize:'20px', fontWeight:'600',paddingTop:'100px'}}>{users.username}</span>
+                <span style={{fontSize:'30px', fontWeight:'700',paddingTop:'100px', color: 'chocolate'}}>{users.username}</span>
                 {/* <Link to={`/admin/admin_user_posts/${users.email}`} style={{fontSize:'18px', fontWeight:'600',paddingTop:'5px',marginLeft:'70%',border:'2px solid black',color:'blue'}} className="btn">User Posts</Link> */}
 
             </div>
@@ -159,42 +159,42 @@ function UserDetail(props){
                
                 
             }}>
-            <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-            <span style={{ width: '150px', marginRight: '10px' }}>Username</span>
+            <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center',}}>
+            <span style={{ width: '150px', marginRight: '10px' ,fontWeight: 'bold'}}>Username</span>
             <span style={{ marginRight: '10px' }}>: </span>
-            <span>{users.username}</span>
+            <span style={{color: '#00008B'}}>{users.username}</span>
             </li>
             <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-            <span style={{ width: '150px', marginRight: '10px' }}>ID</span>
+            <span style={{ width: '150px', marginRight: '10px',fontWeight: 'bold' }}>ID</span>
             <span style={{ marginRight: '10px' }}>: </span>
-            <span>{users.id}</span>
+            <span style={{color: '#00008B'}}>{users.id}</span>
             </li>
             <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-            <span style={{ width: '150px', marginRight: '10px' }}>Email</span>
+            <span style={{ width: '150px', marginRight: '10px' ,fontWeight: 'bold'}}>Email</span>
             <span style={{ marginRight: '10px' }}>: </span>
-            <span>{users.email}</span>
+            <span style={{color: '#00008B'}}>{users.email}</span>
             </li>
             <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-            <span style={{ width: '150px', marginRight: '10px' }}>Phone</span>
+            <span style={{ width: '150px', marginRight: '10px',fontWeight: 'bold' }}>Phone</span>
             <span style={{ marginRight: '10px' }}>: </span>
-            <span>{users.phone}</span>
+            <span style={{color: '#00008B'}}>{users.phone}</span>
             </li>
           
             <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-            <span style={{ width: '150px', marginRight: '10px' }}>Last Login</span>
-            <span style={{ marginRight: '10px' }}>: </span>
-            <span>{users.last_login}</span>
+            <span style={{ width: '150px', marginRight: '10px',fontWeight: 'bold' }}>Last Login</span>
+            <span style={{ marginRight: '10px'}}>: </span>
+            <span style={{color: '#00008B'}}>{users.last_login}</span>
             </li>
             <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-              <span style={{ width: '150px', marginRight: '10px' }}>is active</span>
+              <span style={{ width: '150px', marginRight: '10px',fontWeight: 'bold' }}>is active</span>
               <span style={{ marginRight: '10px' }}>: </span>
               <input type='checkbox' checked={users.is_active} readOnly />
             </li>
 
         
             <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-            <span style={{ width: '150px', marginRight: '10px' }}>is superuser</span>
-            <span style={{ marginRight: '10px' }}>: </span>
+            <span style={{ width: '150px', marginRight: '10px',fontWeight: 'bold' }}>is superuser</span>
+            <span style={{ marginRight: '10px'}}>: </span>
             <input type='checkbox' checked={users.is_superuser}/>
             
 

@@ -13,11 +13,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
-  faPhotoFilm,
-  faBookmark,
-  faPeopleGroup,
-  faEnvelope,
-  faRightFromBracket,
+
 } from "@fortawesome/free-solid-svg-icons";
 import axiosInstance from "../../utils/axiosInstance";
 //import { Link, useParams } from 'react-router-dom';
@@ -159,7 +155,7 @@ const Profilepage = () => {
 
   const handlePhotoSubmit = async () => {
     console.log("submitbutton clicked");
-    const formData = new FormData();
+    //const formData = new FormData();
     if (selectedPhoto) {
       // Create a FormData object
       const formData = new FormData();
@@ -197,9 +193,9 @@ const Profilepage = () => {
   const handlePasswordChangeSuccess = () => {
     setOpen(false); // Close the modal when password change is successful
   };
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
   const handleClose = () => {
     setOpen(false);
   };

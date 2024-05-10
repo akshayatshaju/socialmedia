@@ -240,7 +240,7 @@ function SignUp() {
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
                     <div className="bg-white rounded-lg shadow-lg p-6">
                         {/* Your modal content here */}
-                        <h2 className="text-2xl text-blue-600 mb-4">Verify Your Phone Number</h2>
+                        <h2 className="text-2xl text-blue-600 mb-4">Verify Your Email</h2>
                         <p className="text-gray-800 mb-4">Enter the OTP sent to your phone number.</p>
                         {/* Example input field */}
                         <input type="text" className="border rounded px-4 py-2 mb-4" placeholder="Enter OTP" />

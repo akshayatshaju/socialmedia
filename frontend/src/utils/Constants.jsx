@@ -6,6 +6,10 @@ export const register = "api/register/";
 export const google = "api/googlelogin/"; 
 
 
+export const verify_email = "api/verifyemail/";
+export const verify_failed = 'api/verify-failed';
+
+
 
 export const user = "api/user";
 export const refresh = "api/refresh";

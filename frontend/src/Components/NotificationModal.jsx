@@ -18,25 +18,31 @@ const NotificationModal = ({
   };
 
   const getNotificationMessage = (notification) => {
-    const { notification_type, post, comment } = notification;
+    //const { notification_type, post, comment } = notification;
 
-    if (post) {
-      if (notification_type === "like") {
+    if (notification) {
+      if (notification.notification_type === "like") {
         return "liked your post";
-      } else if (notification_type === "comment") {
+      } else if (notification.notification_type === "comment") {
         return "commented on your post";
-      } else if (notification_type === "post") {
+      } else if (notification.notification_type === "post") {
         return "created a new post";
-      } else if (notification_type === "blocked") {
+      } else if (notification.notification_type === "blocked") {
         return "blocked you post";
+      }else if (notification.notification_type === "follow") {
+        return "has started following you";
+      }else if (notification.notification_type === "reply") {
+        return "has replyed to comment"
       }
-    } else if (comment) {
-      if (notification_type === "comment") {
-        return "replied to your comment";
-      }
-    }
 
-    return "has started following you";
+    } 
+    // else if (comment) {
+    //   if (notification.notification_type === "comment") {
+    //     return "replied to your comment";
+    //   }
+    // }
+
+    //return "has started following you";
   };
 
   const onClick = async (notificationId, id, notificationType, postId) => {
@@ -81,7 +87,7 @@ const NotificationModal = ({
             <ul className="mt-2 overflow-y-scroll h-96">
               {notification && notification?.length > 0 ? (
                 notification.map((note, index) => (
-                  <li key={index} className="">
+                  <li key={note.id} className="">
                     <p
                       className="block w-full whitespace-nowrap px-4 py-2 text-base public hover:bg-neutral-400 active:no-underline cursor-pointer"
                       onClick={() =>
@@ -89,14 +95,15 @@ const NotificationModal = ({
                           note.id,
                           note.from_user.id,
                           note.notification_type,
-                          note.post?.id
+                          note.post?.id,
+                          
                         )
                       }
                       data-te-dropdown-item-ref
                     >
                       {note.notification_type === "blocked"
                         ? "Admin blocked you post"
-                        : `${note.from_user.username} ${getNotificationMessage(
+                        : `${note.from_user} ${getNotificationMessage(
                             note
                           )}`}
                     </p>

@@ -10,7 +10,7 @@ import FollowersList from '../Pages/User/FollowersList';
 import UserSavedPosts from '../Pages/User/UserSavedPost';
 import Chat from '../Components/Chatting';
 import ProfileOfOthers from '../Components/ProfileOfOthers';
-
+import Emailverify from '../Pages/User/Emailverify';
 
 
 
@@ -20,6 +20,7 @@ const UserRouter = () => {
           <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path='/SignUp' element={<SignUp/>}/>
+          <Route path='/Emailverify' element={<Emailverify/>}/>
           <Route path='/Home' element={<Home/>}/>
           
 

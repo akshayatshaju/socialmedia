@@ -11,7 +11,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const [showVerifyModal, setShowVerifyModal] = useState(false);
+ 
 
   const loginUser = async (credentials) => {
     try {
@@ -60,12 +60,20 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button
+           
+            {/* <button
               type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
-              onClick={() => setShowVerifyModal(true)}
+             
             >
-              Verify using Phone
+              Verify using Phone Number
+            </button> */}
+             <button
+              type="button"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
+              onClick={() => navigate('/otplogin')}
+            >
+              Verify using Phone Number
             </button>
             <button
               className="w-full p-2 mt-4 mb-4 bg-green-500 text-white rounded cursor-pointer hover:bg-green-600"
@@ -87,37 +95,7 @@ function Login() {
        
         </div>
       </div>
-      ;{/* Verify Modal */}
-      {showVerifyModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            {/* Your modal content here */}
-            <h2 className="text-2xl text-blue-600 mb-4">Verify Your Phone</h2>
-            <p className="text-gray-800 mb-4">
-              Enter the OTP sent to Phone number.
-            </p>
-            {/* Example input field */}
-            <input
-              type="text"
-              className="border rounded px-4 py-2 mb-4"
-              placeholder="Enter OTP"
-            />
-            {/* Example button */}
-            <button
-              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              onClick={() => console.log("Verify")}
-            >
-              Verify
-            </button>
-            <button
-              className="bg-transparent text-gray-700 px-4 py-2 rounded hover:text-gray-900 ml-4"
-              onClick={() => setShowVerifyModal(false)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+  
     </div>
   );
 }

@@ -192,14 +192,15 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
                 />
               )}
               <div style={{ display: "flex" }}>
-                <p style={{ marginRight: "5px", fontWeight: "bold" }}>
+                <p style={{ marginRight: "5px", fontWeight: "bolder" }}>
                   {comment.user.username}
                 </p>
                 <p
                   style={{
-                    fontWeight: "semibold",
+                    fontWeight: "normal",
                     marginLeft: "-10px",
                     marginTop: "15%",
+                    marginRight: "15px"
                   }}
                 >
                   {comment.content}
@@ -219,7 +220,7 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
               </button>
             )}
 
-            <span style={{ marginRight: "10px" }}></span>
+            <span style={{ marginRight: "10px"}}></span>
 
             {/* Reply button */}
             <button
@@ -229,6 +230,7 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
                 backgroundColor: "transparent",
                 border: "none",
                 cursor: "pointer",
+                marginRight: "15px"
               }}
             >
               <FontAwesomeIcon icon={faReply} />
@@ -281,7 +283,7 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
         style={{
           backgroundColor: 'black',
           color: 'white',
-          padding: '5px 10px',
+          padding: '5px 6px',
           borderRadius: '5px',
           border: 'none',
           cursor: 'pointer'
@@ -307,12 +309,12 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
           borderRadius: "15px",
           filter: "drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5))",
           height : "30%",
-          backgroundColor:"lightskyblue"
+          backgroundColor:"white"
         },
       }}>
       <button onClick={handleCloseModal}>x</button>
       
-        <h2>Replies Modal</h2>
+        <h2>Replies </h2>
         {/* Your content for the modal */}
         {repliedComments.map((reply) => (
                   <div key={reply.id}
@@ -371,7 +373,7 @@ const CommentModal = ({ isOpen, onRequestClose, postId, user }) => {
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Write a comment..."
             rows="1"
-            style={{ width: "80%" }}
+            style={{width: "80%" , backgroundColor: "linen" }}
           />
           <button type="submit" className="py-2 px-4 ml-4 bg-slate-500">
             Comment

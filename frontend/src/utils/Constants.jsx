@@ -7,7 +7,7 @@ export const google = "api/googlelogin/";
 
 
 export const verify_email = "api/verifyemail/";
-export const verify_failed = 'api/verify-failed';
+export const verify_failed = 'api/verify-failed/';
 
 
 
@@ -30,8 +30,8 @@ export const deletereply = "posts/deletereply";
 export const changeprofile = "api/changeprofile";
 export const editprofile = "api/editprofile";
 
-export const sentotp = "api/sentotp";
-export const verifyotp = "api/verifyotp";
+export const sentotp = "api/sentotp/";
+export const verifyotp = "api/verifyotp/";
 
 
 //chat

@@ -11,6 +11,7 @@ import UserSavedPosts from '../Pages/User/UserSavedPost';
 import Chat from '../Components/Chatting';
 import ProfileOfOthers from '../Components/ProfileOfOthers';
 import Emailverify from '../Pages/User/Emailverify';
+import OtpLogin from '../Pages/User/OtpLogin';
 
 
 
@@ -19,6 +20,7 @@ const UserRouter = () => {
     
           <Routes>
           <Route path='/' element={<Login/>}/>
+          <Route path='/otplogin' element={<OtpLogin/>}/>
           <Route path='/SignUp' element={<SignUp/>}/>
           <Route path='/Emailverify' element={<Emailverify/>}/>
           <Route path='/Home' element={<Home/>}/>

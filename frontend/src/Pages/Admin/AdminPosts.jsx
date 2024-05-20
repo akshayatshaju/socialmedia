@@ -50,7 +50,7 @@ function AdminPosts(){
             ) : (
               <div className="flex justify-center items-center w-full">
         <div className="w-full md:w-2/3">
-            <Card className="h-screen w-full overflow-scroll bg-slate-300">
+            <Card className="h-screen w-10/12 overflow-scroll bg-slate-300">
               
               <h2 className='text-red-500 p-4'>User List</h2>
               <div class="flex">
@@ -79,7 +79,7 @@ function AdminPosts(){
                                     Email
                                 </Typography>
                             </th>
-                            <th className="border-b border-blue-gray-100 bg-blue-500 p-4">
+                            <th className="border-b border-blue-gray-100 bg-blue-500 p-4 w-[400px]">
                                 <Typography
                                     variant="large"
                                     color="white"
@@ -98,7 +98,7 @@ function AdminPosts(){
                                   {user.is_deleted ? (
                                       <span class="text-black">{user.email}</span>
                                   ) : (
-                                      <a href={`/admin/admin_user_posts/${user.email}`} className="text-black  hover:scale-110 transition-transform"  style={{ textDecoration: 'none' }} onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.1)')} onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}>
+                                      <a href={`/admin/admin_user_posts/${user.email}`} className="text-black  hover:scale-110 transition-transform "  style={{ textDecoration: 'none',fontWeight: 'bold', fontSize: '18px' }} onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.1)')} onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}>
                                           {user.email}
                                       </a>
                                   )}
@@ -107,7 +107,7 @@ function AdminPosts(){
                                   {user.is_deleted ? (
                                       <span class="text-black">{user.username}</span>
                                   ) : (
-                                      <a  className="text-black  hover:scale-110 transition-transform"  style={{ textDecoration: 'none' }} onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.1)')} onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}>
+                                      <a  className="text-black  hover:scale-110 transition-transform"  style={{ textDecoration: 'none' ,fontWeight: 'bold', fontSize: '18px'}} onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.1)')} onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}>
                                           {user.username}
                                       </a>
                                   )}

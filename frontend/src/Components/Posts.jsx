@@ -370,7 +370,7 @@ function Posts({ username, posts, pic, isMypost }) {
                     className="w-10 h-10 rounded-md mr-2"
                   />{" "}
                   {/* Profile pic */}
-                  <h6 className="profile_name">{post.user.username}</h6>{" "}
+                  <h5 className="profile_name font-bold">{post.user.username}</h5>{" "}
                   {/* Username */}
                 </div>
               ) : (
@@ -388,7 +388,7 @@ function Posts({ username, posts, pic, isMypost }) {
                     handleFollowUnfollow(post.user.id);
                     setTrigger(true);
                   }}
-                  className="follow-btn"
+                  className="follow-btn font-bold" 
                   style={{
                     color: post.is_following_author ? "red" : "blue",
                   }}
@@ -416,9 +416,9 @@ function Posts({ username, posts, pic, isMypost }) {
                   ))}
                 {/* posting media file */}
               </div>
-              <div className="post-details">
-                <div className="post-caption">
-                  <h5>{post.caption}</h5>
+              <div className="post-details pb-3">
+                <div className="post-caption font-bold">
+                  <h5 className="font-bold text-blue-950 ">{post.caption}</h5>
                 </div>
                 <div className="post-hashtags">
                   <div style={{ display: "flex", flexWrap: "wrap" }}>
@@ -426,7 +426,7 @@ function Posts({ username, posts, pic, isMypost }) {
                       post.hashtags.map((hash, index) => (
                         <p
                           key={index}
-                          style={{ margin: "0", marginRight: "5px" }}
+                          style={{ margin: "0", marginRight: "5px" , color: "blueviolet", fontSize: "15px"}}
                         >
                           #{hash.hashtag}
                         </p>
@@ -440,6 +440,7 @@ function Posts({ username, posts, pic, isMypost }) {
                     <FontAwesomeIcon
                       icon={faHeart}
                       color={post.is_liked_or_not ? "red" : "black"}
+                      size="xl"
                     />
                     <span className="ml-1">{post.like_count}</span>
                   </div>
@@ -452,6 +453,7 @@ function Posts({ username, posts, pic, isMypost }) {
                     <FontAwesomeIcon
                       icon={faBookmark}
                       color={post.saved_or_not ? "blue" : "black"}
+                      size="xl"
                     />
                   </div>
                   {/* comment Button */}
@@ -459,7 +461,7 @@ function Posts({ username, posts, pic, isMypost }) {
                     className="share-btn ml-4"
                     onClick={() => openCommentModal(post.id)}
                   >
-                    <FontAwesomeIcon icon={faComment} />
+                    <FontAwesomeIcon icon={faComment}  size="xl"/>
                   </div>
                   {isMypost && (
                     <div
@@ -467,7 +469,7 @@ function Posts({ username, posts, pic, isMypost }) {
                       style={{ marginLeft: "auto", marginRight: "20px" }}
                       onClick={() => handleDeletepost(post.id)}
                     >
-                      <FontAwesomeIcon icon={faTrash} color="red" />
+                      <FontAwesomeIcon icon={faTrash} color="red"  size="xl" />
                     </div>
                   )}
                 </div>

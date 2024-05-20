@@ -17,7 +17,7 @@ import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "react-toastify/dist/ReactToastify.css";
 
 function AdminUserPostsDetails() {
@@ -146,51 +146,9 @@ function AdminUserPostsDetails() {
             }}
           >
             {post.length > 0 && (
+
               <>
-                <li
-                  style={{
-                    marginBottom: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <span style={{ width: "210px", marginRight: "50px" }}>
-                    Caption
-                  </span>
-                  <span style={{ marginRight: "10px" }}>: </span>
-                  <span>{post[0].caption}</span>
-                </li>
-                <li
-                  style={{
-                    marginBottom: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <span style={{ width: "210px", marginRight: "10px" }}>
-                    Created at
-                  </span>
-                  <span style={{ marginRight: "10px" }}>: </span>
-                  <span style={{ whiteSpace: "nowrap" }}>
-                    {formatCreatedAt(post[0].created_at)}
-                  </span>
-                </li>
-                <li
-                  style={{
-                    marginBottom: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <span style={{ width: "210px", marginRight: "10px" }}>
-                    Likes
-                  </span>
-                  <span style={{ marginRight: "10px" }}>: </span>
-                  <span style={{ whiteSpace: "nowrap" }}>
-                    {post[0].like_count}
-                  </span>
-                </li>
-                {post[0].post_media &&
+                  {post[0].post_media &&
                   Array.isArray(post[0].post_media) &&
                   post[0].post_media.map((p, index) => (
                     <li
@@ -208,6 +166,68 @@ function AdminUserPostsDetails() {
                       />
                     </li>
                   ))}
+                <li
+                  style={{
+                    marginBottom: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <span
+                    style={{
+                      width: "210px",
+                      marginRight: "50px",
+                      fontWeight: "bold",
+                      color: "blue",
+                    }}
+                  >
+                    Caption
+                  </span>
+
+                  <span style={{ marginRight: "10px", fontWeight: "bold" }}>: </span>
+                  <span style={{ fontWeight: "bold" }}>{post[0].caption}</span>
+                </li>
+                <li
+                  style={{
+                    marginBottom: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <span style={{
+                      width: "210px",
+                      marginRight: "50px",
+                      fontWeight: "bold",
+                      color: "blue",
+                    }}>
+                    Created at
+                  </span>
+                  <span style={{ marginRight: "10px", fontWeight: "bold" }}>: </span>
+                  <span style={{ whiteSpace: "nowrap" , fontWeight: "bold"}}>
+                    {formatCreatedAt(post[0].created_at)}
+                  </span>
+                </li>
+                <li
+                  style={{
+                    marginBottom: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <span style={{
+                      width: "210px",
+                      marginRight: "50px",
+                      fontWeight: "bold",
+                      color: "blue",
+                    }}>
+                    Likes
+                  </span>
+                  <span style={{ marginRight: "10px",  fontWeight: "bold" }}>: </span>
+                  <span style={{ whiteSpace: "nowrap" , fontWeight: "bold" }}>
+                    {post[0].like_count}
+                  </span>
+                </li>
+               
               </>
             )}
           </ul>
@@ -327,11 +347,10 @@ function AdminUserPostsDetails() {
                             handleDeleteComment(comment.id);
                           }}
                           style={{
-                            border: "5px solid red",
                             marginLeft: "90px",
                           }}
                         >
-                          Delete Comment
+                          <FontAwesomeIcon icon={faTrash} color="red" />
                         </button>
                       </div>
                     </div>

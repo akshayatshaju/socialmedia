@@ -1,44 +1,44 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   Chart as ChartJS,
-
-  BarElement,
-
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend,
+  CategoryScale,
 } from 'chart.js';
-
 import { Line } from 'react-chartjs-2';
-import { CategoryScale } from 'chart.js';
-import { Chart, registerables } from 'chart.js';
 import axiosInstanceAdmin from "../../utils/axiosInstanceAdmin";
 import { baseUrl } from "../../utils/Constants";
 import AdminNav from "../../Components/AdminNav";
 import AdminSide from "../../Components/AdminSide";
 
-Chart.register(...registerables);
-
 ChartJS.register(
-  BarElement, CategoryScale
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Title,
+  Tooltip,
+  Legend
 );
 
-
 const BarChart = () => {
-
   const [chartData, setChartData] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     const fetchChartData = async () => {
       setLoading(true);
       try {
-
         const response = await axiosInstanceAdmin.get(`${baseUrl}myAdmin/graph`);
         if (response.status === 200) {
           setChartData(response.data);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-
       }
       setLoading(false);
     };
@@ -46,61 +46,85 @@ const BarChart = () => {
     fetchChartData();
   }, []);
 
-
-
-
-  var data = {
+  const data = {
     labels: chartData.map((item) => item.joining_month),
     datasets: [{
       label: 'User Count',
       data: chartData.map((item) => item.user_count),
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      backgroundColor: 'rgba(153, 102, 255, 0.2)',
       borderColor: 'rgba(153, 102, 255, 1)',
       borderWidth: 2,
+      pointBackgroundColor: 'rgba(153, 102, 255, 1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(153, 102, 255, 1)',
     }]
   };
 
-  var options = {
+  const options = {
     maintainAspectRatio: false,
-    scales: {},
-    legend: {
-      labels: {
-        fontSize: 25,
-      },
-    },
     responsive: true,
-    //maintainAspectRatio: false,
-
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          font: {
+            size: 16
+          },
+          color: '#4B5563'
+        }
       },
+      title: {
+        display: true,
+        text: 'User Joining Month Statistics',
+        font: {
+          size: 24
+        },
+        color: '#1F2937'
+      },
+      tooltip: {
+        backgroundColor: '#4B5563',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+      }
     },
+    scales: {
+      x: {
+        ticks: {
+          color: '#4B5563'
+        },
+        grid: {
+          display: false
+        }
+      },
+      y: {
+        ticks: {
+          color: '#4B5563'
+        },
+        grid: {
+          color: '#D1D5DB'
+        }
+      }
+    }
   };
-  return (
-    <div>
-      <AdminNav />
 
-      
+  return (
+    <div className='admin'>
+      <AdminNav />
       <div className="flex flex-col lg:flex-row">
-     
         <AdminSide />
-        <div className="lg:w-3/4">
+        <div className="lg:w-3/4 p-4">
           {loading ? (
-            <p className="text-center">Loading...</p>
+            <p className="text-center text-gray-500">Loading...</p>
           ) : (
-            <div>
-              <h3 className="text-center lg:text-left mt-4 lg:mt-0">User Joining Month Statistics</h3>
-              <div className="bg-red p-5 rounded-lg" style={{ maxWidth: '600px', margin: 'auto', border: '2px solid #D0D4D5' }}>
-                <Line data={data} height={400} options={options} />
-              </div>
+            <div className="bg-white p-5 rounded-lg shadow-md" style={{ maxWidth: '800px', margin: 'auto', border: '2px solid #E5E7EB' }}>
+              <Line data={data} height={400} options={options} />
             </div>
           )}
         </div>
       </div>
-
     </div>
-  )
+  );
 }
 
-export default BarChart
+export default BarChart;

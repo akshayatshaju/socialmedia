@@ -61,20 +61,14 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
            
-            {/* <button
-              type="button"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
-             
-            >
-              Verify using Phone Number
-            </button> */}
-             <button
+          
+             {/* <button
               type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
               onClick={() => navigate('/otplogin')}
             >
               Verify using Phone Number
-            </button>
+            </button> */}
             <button
               className="w-full p-2 mt-4 mb-4 bg-green-500 text-white rounded cursor-pointer hover:bg-green-600"
               type="submit"
@@ -89,7 +83,7 @@ function Login() {
               Sign up
             </Link>
           </p>
-          <div className="google-button">
+          <div className="text-center google-button">
          <Googlelogin/>
           </div>
        

@@ -13,14 +13,38 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Modal from '@mui/material/Modal';
+import Backdrop from '@mui/material/Backdrop';
+import Fade from '@mui/material/Fade';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const defaultTheme = createTheme();
+
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #2196f3',  // Blue border
+  boxShadow: 24,
+  p: 4,
+  textAlign: 'center',
+  borderRadius: '10px',
+};
+
+const typographyStyle = {
+  color: '#2196f3',  // Blue font color
+  fontFamily: 'Roboto, sans-serif',  // Stylish font
+};
 
 function Emailverify() {
   const navigate = useNavigate();
   const [timer, setTimer] = useState(100);
   const [otp, setOtp] = useState('');
   const [randomUserEmail, setRandomUserEmail] = useState('');
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -55,12 +79,11 @@ function Emailverify() {
       if (response.status === 200) {
         console.log(response.data, 'response');
         localStorage.removeItem('randomUserEmail');
-        // toast.success('The user details have been updated.', {
-        //   position: toast.POSITION.TOP_RIGHT,
-        // });
-        console.log(randomUserEmail,"randomuserrr");
-        navigate('/');
-        console.log("login navigate");
+        setOpen(true);
+        setTimeout(() => {
+          setOpen(false);
+          navigate('/');
+        }, 3000);
       } else {
         toast.error('Verification Failed! Please Try Again.', {
           position: toast.POSITION.TOP_RIGHT,
@@ -132,9 +155,31 @@ function Emailverify() {
         </div>
       </div>
       <ToastContainer />
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={modalStyle}>
+            <CheckCircleOutlineIcon style={{ fontSize: 60, color: '#2196f3' }} />
+            <Typography id="transition-modal-title" variant="h6" component="h2" sx={typographyStyle}>
+              Email Verified Successfully!
+            </Typography>
+            <Typography id="transition-modal-description" sx={{ mt: 2, ...typographyStyle }}>
+              You will be redirected to the login page shortly.
+            </Typography>
+          </Box>
+        </Fade>
+      </Modal>
     </div>
   );
 }
 
 export default Emailverify;
-

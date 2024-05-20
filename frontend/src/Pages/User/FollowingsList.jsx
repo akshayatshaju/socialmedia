@@ -63,9 +63,11 @@ const FollowingListPage = () => {
   );
 
   const [userfollow, setuserfollow] = useState({});
+  
   const handleFollowUnfollow = async (userId) => {
     try {
       const followresponse = await FollowUnfollowApi(userId);
+
       const updatedFollowing = following.filter(
         (user) => user.following.id !== userId
       );

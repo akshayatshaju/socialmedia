@@ -51,7 +51,7 @@ const UserList = ({ users }) => {
                     <tbody>
                         {filteredUsers.map((user, index) => (
                             <tr key={user.id} className={index % 2 === 0 ? "even:bg-blue-gray-50/50" : ""}>
-                                <td className="p-4">{index + 1}</td>
+                                <td className="p-4" >{index + 1}</td>
                                 <td className="p-4">
                                     {user.is_deleted ? (
                                         <Typography variant="small" color="blue-gray" className="font-normal">
@@ -63,7 +63,7 @@ const UserList = ({ users }) => {
                                             className="text-black hover:scale-110 transition-transform "
                                             style={{ textDecoration: 'none' }}
                                         >
-                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                            <Typography variant="h5"  color="blue-gray" className="font-bold">
                                                 {user.email}
                                             </Typography>
                                         </Link>
@@ -80,7 +80,7 @@ const UserList = ({ users }) => {
                                             className="text-black hover:scale-110 transition-transform "
                                             style={{ textDecoration: 'none' }}
                                         >
-                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                            <Typography variant="h5" color="blue-gray" className="font-bold">
                                                 {user.username}
                                             </Typography>
                                         </Link>

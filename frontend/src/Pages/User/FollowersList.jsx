@@ -13,6 +13,7 @@ import FollowUnfollowApi from "../../api/FollowUnFollowApi";
 
 const FollowersListPage = () => {
   const [following, setFollowing] = useState([]);
+  const [followers, setFollowers] = useState([]);
   const navigate = useNavigate();
   const [userName, setUserName] = useState(null);
   const [userposts, setUserposts] = useState([]);
@@ -63,24 +64,47 @@ const FollowersListPage = () => {
   );
 
   const [userfollow, setuserfollow] = useState({});
+
+  // const handleFollowUnfollow = async (userId) => {
+  //   try {
+  //     const followresponse = await FollowUnfollowApi(userId);
+
+  //     const updatedFollowState = {
+  //       ...userfollow,
+  //       [userId]: {
+  //         follow: followresponse.detail === "You are now following this user.",
+  //       },
+  //     };
+
+  //     setuserfollow(updatedFollowState);
+  //   } catch (e) {
+  //     console.log(e);
+  //     console.log("follow/unfollow got error");
+  //   }
+  // };
   const handleFollowUnfollow = async (userId) => {
     try {
       const followresponse = await FollowUnfollowApi(userId);
-
+  
+      const updatedFollowers = followers.filter(
+        (user) => user.follower.id !== userId
+      );
+  
+      setFollowers(updatedFollowers);
       const updatedFollowState = {
         ...userfollow,
         [userId]: {
           follow: followresponse.detail === "You are now following this user.",
         },
       };
-
+  
       setuserfollow(updatedFollowState);
     } catch (e) {
       console.log(e);
       console.log("follow/unfollow got error");
     }
   };
-
+  
   return (
     <>
       {userName && userposts ? (
@@ -128,7 +152,7 @@ const FollowersListPage = () => {
                             )
                           }
                         >
-                          UnFollow
+                          Remove
                         </button>
                       </td>
                     </tr>

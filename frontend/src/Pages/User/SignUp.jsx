@@ -3,26 +3,25 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { baseUrl, register } from "../../utils/Constants";
-
-
-
+import { Loader } from "rsuite";
+import "rsuite/dist/rsuite.min.css"; // Ensure rsuite CSS is imported
+import "./loader.css"; // Import your custom loader CSS
 
 function SignUp() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [emailError, setEmailError] = useState("");
   const [firstName, setFirstName] = useState("");
-  //const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  //const [showSuccessModal, setShowSuccessModal] = useState(false); // Define showSuccessModal and setShowSuccessModal here
-  //const [showVerifyModal, setShowVerifyModal] = useState(false);
+  const [loading, setLoading] = useState(false); // Loader state
 
   const signupUser = async (credentials) => {
+    setLoading(true); // Start loader
     try {
       const response = await axios.post(baseUrl + register, credentials, {
         headers: {
@@ -36,11 +35,9 @@ function SignUp() {
 
         toast.success('Extreme team has sent an OTP to your email for verification.', {
           onClose: () => {
-            //localStorage.setItem('randomUserEmail',email);
             localStorage.setItem('randomUserEmail', email);
-
-            console.log(email,"email success");
-            console.log("randomUserEmail")
+            console.log(email, "email success");
+            console.log("randomUserEmail");
             navigate('/Emailverify');
           }
         });
@@ -48,7 +45,6 @@ function SignUp() {
         console.log(response.data);
         toast.error('Invalid Details');
       }
-
     } catch (error) {
       setErrors(error.response.data);
       console.error(error.response.data);
@@ -63,6 +59,8 @@ function SignUp() {
           toast.error(`Password: ${errors[field][0]}`);
         }
       });
+    } finally {
+      setLoading(false); // Stop loader
     }
   };
 
@@ -89,8 +87,6 @@ function SignUp() {
     }
     setPhoneError("");
 
-
-
     const formData = {
       name: firstName,
       email,
@@ -100,8 +96,6 @@ function SignUp() {
     };
 
     await signupUser(formData);
-
-   
   };
 
   return (
@@ -226,6 +220,7 @@ function SignUp() {
             <button
               type="submit"
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 md:mt-0 md:ml-2"
+              disabled={loading}
             >
               Create Account
             </button>
@@ -234,12 +229,16 @@ function SignUp() {
           <p className="text-center mt-3">
             Already have an account?{" "}
             <Link className="text-blue-500" to="/">
-            Sign in here
-          </Link>
-         
+              Sign in here
+            </Link>
           </p>
         </div>
       </div>
+      {loading && (
+        <div className="loader-container">
+          <Loader center content="loading" size="lg" />
+        </div>
+      )}
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -250,8 +249,6 @@ function SignUp() {
         draggable
         pauseOnHover
       />
-   
-  
     </div>
   );
 }

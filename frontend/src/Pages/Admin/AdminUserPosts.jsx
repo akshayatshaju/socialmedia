@@ -54,7 +54,7 @@ function AdminUserPosts(props) {
             <Card className=" h-screen w-full overflow-scroll bg-slate-300">
               <div className="flex flex-col">
                 <div className="text-black text-base ml-5 mt-3">
-                  <h2 className="text-red-500 text-2xl ml-auto mt-3">
+                  <h2 className="text-red-500 text-5xl ml-auto mt-3">
                     {posts.user}Post List
                   </h2>
                 </div>
@@ -64,9 +64,9 @@ function AdminUserPosts(props) {
                     <tr>
                       <th className="border-b border-blue-gray-100 bg-blue-500 p-4">
                         <Typography
-                          variant="large"
+                          variant="h5"
                           color="white"
-                          className="font-normal leading-none opacity-70"
+                          className="font-bold leading-none opacity-70"
                         >
                           Users Post Captions
                         </Typography>
@@ -94,14 +94,16 @@ function AdminUserPosts(props) {
                               color: "black",
                               transformOrigin: "center",
                               display: "inline-block",
+                              fontSize: "20px",
+                              fontWeight: "bold"
                             }}
-                            onMouseOver={(e) => (
-                              (e.currentTarget.style.color = "black"),
-                              (e.currentTarget.style.cursor = "pointer")
-                            )}
-                            onMouseOut={(e) =>
-                              (e.currentTarget.style.color = "blue")
-                            }
+                            // onMouseOver={(e) => (
+                            //   (e.currentTarget.style.color = "black"),
+                            //   (e.currentTarget.style.cursor = "pointer")
+                            // )}
+                            // onMouseOut={(e) =>
+                            //   (e.currentTarget.style.color = "blue")
+                            // }
                             onClick={() => handlePostDetails(p.id)}
                           >
                             {p.caption}---{formatCreatedAt(p.created_at)}

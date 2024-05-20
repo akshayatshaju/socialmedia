@@ -247,7 +247,7 @@ const Chat = () => {
                                         )}
 
                                         <div className="max-w-xs p-3">
-                                            <p className="text-sm">{message.message || message.content}</p>
+                                            <p className="text-lg">{message.message || message.content}</p>
                                             {/* <span className="text-xs text-gray-500 leading-none">
                       {message.created} ago
                     </span> */}

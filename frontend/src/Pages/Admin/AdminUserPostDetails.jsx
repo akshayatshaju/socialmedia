@@ -1,15 +1,15 @@
 import AdminNav from "../../Components/AdminNav";
 import AdminSide from "../../Components/AdminSide";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   baseUrl,
   userpostsdetails,
   deletepostadmin,
+  blockpost, // Import blockpost URL
   base,
 } from "../../utils/Constants";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axiosInstanceAdmin from "../../utils/axiosInstanceAdmin";
 import Button from "react-bootstrap/Button";
@@ -22,18 +22,20 @@ import "react-toastify/dist/ReactToastify.css";
 
 function AdminUserPostsDetails() {
   const navigate = useNavigate();
-  const [post, setPost] = useState([]);
   const { id } = useParams();
+  const [post, setPost] = useState([]);
   const [comments, setComments] = useState([]);
   const [trigger, setTrigger] = useState(false);
   const [hoveredCommentId, setHoveredCommentId] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [isBlocked, setIsBlocked] = useState(false); // State to track if the post is blocked
 
   useEffect(() => {
     axiosInstanceAdmin
       .get(`${baseUrl}${userpostsdetails}/${id}`)
       .then((response) => {
         setPost(response.data);
+        setIsBlocked(response.data[0]?.blocked || false); // Set the block status
         console.log(response.data);
       })
       .catch((error) => {
@@ -47,7 +49,7 @@ function AdminUserPostsDetails() {
       .catch((error) => {
         console.error(error);
       });
-  }, [trigger]);
+  }, [trigger, id]);
 
   // Function to format date using Intl.DateTimeFormat
   const formatCreatedAt = (createdAt) => {
@@ -77,7 +79,7 @@ function AdminUserPostsDetails() {
           .delete(url)
           .then((res) => {
             console.log("post deleted");
-            navigate("/admin/Admindash");
+            navigate("/admin/posts");
           })
           .catch((error) => {
             console.log(error);
@@ -86,15 +88,34 @@ function AdminUserPostsDetails() {
     });
   };
 
-  //   comment of post
+  const handleBlockPost = async (id) => {
+    const url = `${baseUrl}${blockpost}/${id}/`;
+    axiosInstanceAdmin
+      .post(url, { action: "block" })
+      .then((response) => {
+        setIsBlocked(true);
+        Swal.fire("Blocked!", "The post has been blocked.", "success");
+      })
+      .catch((error) => {
+        console.error("Error blocking post:", error);
+        Swal.fire("Error", "Failed to block the post.", "error");
+      });
+  };
 
-  const [modalShow, setModalShow] = useState(false);
-  const handleModalOpen = () => {
-    setOpen(true);
+  const handleUnblockPost = async (id) => {
+    const url = `${baseUrl}${blockpost}/${id}/`;
+    axiosInstanceAdmin
+      .post(url, { action: "unblock" })
+      .then((response) => {
+        setIsBlocked(false);
+        Swal.fire("Unblocked!", "The post has been unblocked.", "success");
+      })
+      .catch((error) => {
+        console.error("Error unblocking post:", error);
+        Swal.fire("Error", "Failed to unblock the post.", "error");
+      });
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   const handleDeleteComment = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -110,7 +131,7 @@ function AdminUserPostsDetails() {
           .delete(url)
           .then((res) => {
             console.log("comment deleted");
-            setTrigger(false);
+            setTrigger(!trigger);
           })
           .catch((error) => {
             console.log(error);
@@ -146,9 +167,8 @@ function AdminUserPostsDetails() {
             }}
           >
             {post.length > 0 && (
-
               <>
-                  {post[0].post_media &&
+                {post[0].post_media &&
                   Array.isArray(post[0].post_media) &&
                   post[0].post_media.map((p, index) => (
                     <li
@@ -183,7 +203,6 @@ function AdminUserPostsDetails() {
                   >
                     Caption
                   </span>
-
                   <span style={{ marginRight: "10px", fontWeight: "bold" }}>: </span>
                   <span style={{ fontWeight: "bold" }}>{post[0].caption}</span>
                 </li>
@@ -194,16 +213,18 @@ function AdminUserPostsDetails() {
                     alignItems: "center",
                   }}
                 >
-                  <span style={{
+                  <span
+                    style={{
                       width: "210px",
                       marginRight: "50px",
                       fontWeight: "bold",
                       color: "blue",
-                    }}>
+                    }}
+                  >
                     Created at
                   </span>
                   <span style={{ marginRight: "10px", fontWeight: "bold" }}>: </span>
-                  <span style={{ whiteSpace: "nowrap" , fontWeight: "bold"}}>
+                  <span style={{ whiteSpace: "nowrap", fontWeight: "bold" }}>
                     {formatCreatedAt(post[0].created_at)}
                   </span>
                 </li>
@@ -214,23 +235,25 @@ function AdminUserPostsDetails() {
                     alignItems: "center",
                   }}
                 >
-                  <span style={{
+                  <span
+                    style={{
                       width: "210px",
                       marginRight: "50px",
                       fontWeight: "bold",
                       color: "blue",
-                    }}>
+                    }}
+                  >
                     Likes
                   </span>
-                  <span style={{ marginRight: "10px",  fontWeight: "bold" }}>: </span>
-                  <span style={{ whiteSpace: "nowrap" , fontWeight: "bold" }}>
+                  <span style={{ marginRight: "10px", fontWeight: "bold" }}>: </span>
+                  <span style={{ whiteSpace: "nowrap", fontWeight: "bold" }}>
                     {post[0].like_count}
                   </span>
                 </li>
-               
               </>
             )}
           </ul>
+
           <button
             style={{
               backgroundColor: "#FF5252",
@@ -246,11 +269,42 @@ function AdminUserPostsDetails() {
             Delete
           </button>
 
+          {isBlocked ? (
+            <button
+              style={{
+                backgroundColor: "#FF5252",
+                border: "5px solid #FF5252",
+                marginRight: "5%",
+                marginLeft: "5%",
+                marginTop: "20px",
+                width: "100px",
+                borderRadius: "5px",
+              }}
+              onClick={() => handleUnblockPost(post[0].id)}
+            >
+              Unblock
+            </button>
+          ) : (
+            <button
+              style={{
+                backgroundColor: "#805ad5",
+                border: "5px solid #805ad5",
+                marginRight: "5%",
+                marginLeft: "5%",
+                marginTop: "20px",
+                width: "100px",
+                borderRadius: "5px",
+              }}
+              onClick={() => handleBlockPost(post[0].id)}
+            >
+              Block
+            </button>
+          )}
+
           <button
             style={{
               backgroundColor: "#805ad5",
               border: "5px solid #805ad5",
-
               marginTop: "20px",
               width: "100px",
               borderRadius: "5px",
@@ -260,7 +314,7 @@ function AdminUserPostsDetails() {
             Comments
           </button>
 
-          <button
+          {/* <button
             style={{
               backgroundColor: "#FF5252",
               border: "5px solid #FF5252",
@@ -273,12 +327,12 @@ function AdminUserPostsDetails() {
           >
             <Link
               to={`/admin/Admindash`}
-              className="text-black hover:scale-110 transition-transform "
+              className="text-black hover:scale-110 transition-transform"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               User
             </Link>
-          </button>
+          </button> */}
 
           <Modal
             show={modalShow}

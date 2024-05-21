@@ -32,7 +32,7 @@ const UserSearchDropdown = ({
       >
         <table
           className="border-collapse bg-blue-100 shadow-md table-followings"
-          style={{ width: "70%" }}
+          style={{ width: "100%" }}
         >
           <tbody>
             {users.map((user) => (

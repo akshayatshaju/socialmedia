@@ -3,20 +3,18 @@ import { baseUrl, user, mypost, recommended } from "../../utils/Constants";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import Navbar from "../../Components/NavBar";
-import { Loader, Placeholder } from "rsuite";
-import "./loader.css";
+import { Loader } from "rsuite";
 import SideBar from "../../Components/SideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import "./Followings.css";
 import FollowUnfollowApi from "../../api/FollowUnFollowApi";
 
 const FollowingListPage = () => {
   const [following, setFollowing] = useState([]);
-  //const navigate = useNavigate()
   const [userName, setUserName] = useState(null);
   const [userposts, setUserposts] = useState([]);
   const [recommendedposts, setRecomposts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,13 +55,8 @@ const FollowingListPage = () => {
     fetchData();
   }, []);
 
-  // Filter following based on search query
-  const filteredFollowing = following.filter((followingUser) =>
-    followingUser.following.username.toLowerCase()
-  );
-
   const [userfollow, setuserfollow] = useState({});
-  
+
   const handleFollowUnfollow = async (userId) => {
     try {
       const followresponse = await FollowUnfollowApi(userId);
@@ -90,68 +83,68 @@ const FollowingListPage = () => {
   return (
     <>
       {userName && userposts ? (
-        <>
-          <div className="home">
-            <Navbar username={userName.username} pic={userName.profile_pic} />
-            <div className="flex flex-row">
-              <SideBar />
-              <div className="ml-52 w-1/2">
-                {filteredFollowing.length > 0 ? (
-                  <div className="mt-4">
-                    <h2 className="text-white">Followings</h2>
-                    <div className="overflow-x-auto h-screen">
-                      <table className="border-collapse bg-slate-100 shadow-md table-followings w-full ">
-                        <tbody>
-                          {filteredFollowing.map((followingUser) => (
-                            <tr key={followingUser.id}>
-                              <td className="py-4">
-                                {followingUser.following.profile_pic ? (
-                                  <img
-                                    src={followingUser.following.profile_pic}
-                                    alt={`${followingUser.following.username}'s profile`}
-                                    className="w-12 h-12 rounded-full"
-                                  />
-                                ) : (
-                                  <FontAwesomeIcon
-                                    icon={faUser}
-                                    className="w-12 h-12 rounded-full border border-black p-1"
-                                  />
-                                )}
-                              </td>
-                              <td
-                                className="py-4 text-2xl text-teal-900"
-                                onClick={() => followingUser.following.id}
+        <div className="home">
+          <Navbar username={userName.username} pic={userName.profile_pic} />
+          <div className="flex flex-row">
+            <SideBar />
+            <div className="ml-52 w-1/2">
+              {following.length > 0 ? (
+                <div className="mt-4">
+                  <h2 className="text-white">Followings</h2>
+                  <div className="overflow-x-auto h-screen">
+                    <table className="border-collapse bg-white shadow-md w-full">
+                      <tbody>
+                        {following.map((followingUser) => (
+                          <tr
+                            key={followingUser.id}
+                            className="hover:bg-gray-100"
+                          >
+                            <td className="py-4 px-6">
+                              {followingUser.following.profile_pic ? (
+                                <img
+                                  src={followingUser.following.profile_pic}
+                                  alt={`${followingUser.following.username}'s profile`}
+                                  className="w-12 h-12 rounded-full"
+                                />
+                              ) : (
+                                <FontAwesomeIcon
+                                  icon={faUser}
+                                  className="w-12 h-12 rounded-full border border-black p-1"
+                                />
+                              )}
+                            </td>
+                            <td
+                              className="py-4 px-6 text-lg text-gray-900 cursor-pointer"
+                              onClick={() =>
+                                navigate(`/profile/${followingUser.following.id}`)
+                              }
+                            >
+                              {followingUser.following.username}
+                            </td>
+                            <td className="py-4 px-6">
+                              <button
+                                type="button"
+                                className="text-white bg-red-500 border border-black rounded px-4 py-2 transition duration-300 hover:bg-red-600"
+                                onClick={() =>
+                                  handleFollowUnfollow(followingUser.following.id)
+                                }
                               >
-                                {followingUser.following.username}
-                              </td>
-                              <td className="py-4">
-                                <button
-                                  type="button"
-                                  className="text-white bg-red-500 border border-black rounded px-4 py-2 transition duration-300 hover:bg-red-600"
-                                  onClick={() =>
-                                    handleFollowUnfollow(
-                                      followingUser.following.id
-                                    )
-                                  }
-                                >
-                                  UnFollow
-                                </button>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                                Unfollow
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
-                ) : (
-                  <h2 className="text-white mt-4">No Followings</h2>
-                )}
-              </div>
+                </div>
+              ) : (
+                <h2 className="text-white mt-4">No Followings</h2>
+              )}
             </div>
           </div>
-        </>
+        </div>
       ) : (
-        // Loading state or alternative content
         <div className="flex items-center justify-center h-screen">
           <Loader center content="Loading" size="lg" />
         </div>

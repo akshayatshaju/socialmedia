@@ -10,8 +10,13 @@ function AdminSide() {
       </div>
       <div className='savedpost flex items-center py-2 px-4'>
         
-        <Link to="/admin/chart" className="savedpost_text ml-2 text-white" style={{ textDecoration: 'none' }}> AdminDashboard</Link>
+        <Link to="/admin/chart" className="savedpost_text ml-2 text-white" style={{ textDecoration: 'none' }}> AdminDashboard Month</Link>
       </div>
+      <div className='savedpost flex items-center py-2 px-4'>
+        
+        <Link to="/admin/Yearchart" className="savedpost_text ml-2 text-white" style={{ textDecoration: 'none' }}> AdminDashboard Year</Link>
+      </div>
+      
       <div className='followers flex items-center py-2 px-4'>
         
         <Link to='/admin/posts' className="followers_text ml-2 text-white" style={{ textDecoration: 'none' }}>PostsManage</Link>

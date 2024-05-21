@@ -32,7 +32,7 @@
 //   const [selectedPhoto, setSelectedPhoto] = useState(null);
 //   const [posts, setPosts] = useState([]);
 //   const [isLoading, setIsLoading] = useState(true); // New loading state
-  
+
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
@@ -148,10 +148,8 @@
 
 //     setSelectedPhoto(event.target.files[0]);
 //     console.log(event.target.files[0],"and",selectedPhoto,"this is the selected photo");
-    
+
 //   };
-
-
 
 //   const handlePhotoSubmit = async () => {
 //     console.log("submitbutton clicked");
@@ -161,9 +159,6 @@
 //       const formData = new FormData();
 
 //       formData.append("profile_pic", selectedPhoto);
-      
-
-      
 
 //       // Make the PATCH request with the FormData
 //       axiosInstance
@@ -348,7 +343,7 @@ const Profilepage = () => {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // New loading state
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -424,7 +419,10 @@ const Profilepage = () => {
     formData.append("phone", phone);
 
     try {
-      const response = await axiosInstance.patch(baseUrl + editprofile, formData);
+      const response = await axiosInstance.patch(
+        baseUrl + editprofile,
+        formData
+      );
       console.log(response);
       setUserName((prevState) => ({
         ...prevState,
@@ -452,7 +450,12 @@ const Profilepage = () => {
 
   const handlePhotoChange = (event) => {
     setSelectedPhoto(event.target.files[0]);
-    console.log(event.target.files[0], "and", selectedPhoto, "this is the selected photo");
+    console.log(
+      event.target.files[0],
+      "and",
+      selectedPhoto,
+      "this is the selected photo"
+    );
   };
 
   const handlePhotoSubmit = async () => {
@@ -462,11 +465,15 @@ const Profilepage = () => {
       formData.append("profile_pic", selectedPhoto);
 
       try {
-        const response = await axiosInstance.patch(baseUrl + changeprofile, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axiosInstance.patch(
+          baseUrl + changeprofile,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
         console.log(response.data);
         setUserName((prevState) => ({
@@ -572,13 +579,17 @@ const Profilepage = () => {
 
                       <div className="text-gray-600 mb-2">
                         <p>Email: {userName.email}</p>
-                        {userName.phone && <p>Phone Number: {userName.phone}</p>}
-                        {userName.first_name && <p>First Name: {userName.first_name}</p>}
+                        {userName.phone && (
+                          <p>Phone Number: {userName.phone}</p>
+                        )}
+                        {userName.first_name && (
+                          <p>First Name: {userName.first_name}</p>
+                        )}
                       </div>
 
                       <div className="flex buttons-container">
                         <button
-                          className="btn edit-profile-btn"
+                          className="bg-green-500 text-white hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg px-4 py-2"
                           onClick={handleEditProfileClicked}
                         >
                           Edit Profile
@@ -605,7 +616,7 @@ const Profilepage = () => {
                   borderRadius: "15px",
                   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                   overflow: "auto",
-                  backgroundColor: "lightblue"
+                  backgroundColor: "lightblue",
                 },
               }}
             >
@@ -625,8 +636,7 @@ const Profilepage = () => {
                   onChange={handlePhotoChange}
                   className="mb-4"
                 />
-              
-             
+
                 <div className="flex justify-center mt-4">
                   <button
                     className="btn px-4 py-2 text-lg border  border-black rounded-md focus:outline-none"
@@ -672,7 +682,7 @@ const Profilepage = () => {
                       style={{ borderColor: usernameError ? "red" : "black" }}
                     />
                   </Form.Group>
-            
+
                   <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlTextarea1"

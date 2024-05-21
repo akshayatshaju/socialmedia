@@ -47,7 +47,7 @@ const NotificationModal = ({
         ["like", "comment", "post"].includes(notificationType)
       ) {
         // Redirect to the liked post page
-        // navigate(`/post/${postId}`);
+         navigate(`/post/${postId}`);
       } else if (notificationType === "blocked") {
         // Redirect to a special "blocked" page
         // navigate(`/blocked`);

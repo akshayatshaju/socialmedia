@@ -46,4 +46,7 @@ export const blockuser = "myAdmin/blockuser";
 export const userposts = "myAdmin/adminuserposts";
 export const userpostsdetails = "myAdmin/adminuserpostsdetails";
 export const deletepostadmin = "myAdmin/deletepost";
+export const graph = "myAdmin/graph";
+export const yeargraph = "myAdmin/yeargraph"
+export const blockpost = "myAdmin/blockpost"
 

@@ -58,7 +58,7 @@ const UserSavedPosts = () => {
               <SideBar pic={userName?userName.profile_pic:""}/>
             {posts.length>0?
               <Posts  username={userName?userName:""} posts={sortedPosts} pic={userName?userName.profile_pic:""} isMypost={false}/>
-              :<h2 style={{marginLeft:'45%',marginTop:'15%'}}>No Saved Posts</h2>
+              :<h2 style={{marginLeft:'20%',marginTop:'15%', color: 'white'}}>No Saved Posts</h2>
   }
         
             </div>

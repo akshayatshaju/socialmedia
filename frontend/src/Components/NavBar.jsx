@@ -115,7 +115,7 @@ const Navbar = ({ username, pic }) => {
           )} */}
           <span className="text-white font-bold">Hi........{username}</span>
         </div>
-        <img src="\images\logo.png" alt="Logo" className="block h-8" />
+        {/* <img src="\images\logo.png" alt="Logo" className="block h-8" /> */}
         <div className="hidden lg:block">
           <ul className="flex gap-6">
             <li className="flex items-center">

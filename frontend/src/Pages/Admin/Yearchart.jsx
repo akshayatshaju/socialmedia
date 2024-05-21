@@ -1,26 +1,22 @@
+
 import React, { useState, useEffect } from 'react';
 import {
   Chart as ChartJS,
-  //LineElement,
   BarElement,
-  PointElement,
   LinearScale,
   Title,
   Tooltip,
   Legend,
   CategoryScale,
 } from 'chart.js';
-//import { Line } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 import axiosInstanceAdmin from "../../utils/axiosInstanceAdmin";
-import { baseUrl,graph } from "../../utils/Constants";
+import { baseUrl , yeargraph} from "../../utils/Constants";
 import AdminNav from "../../Components/AdminNav";
 import AdminSide from "../../Components/AdminSide";
 
 ChartJS.register(
-  //LineElement,
   BarElement,
-  PointElement,
   LinearScale,
   CategoryScale,
   Title,
@@ -28,17 +24,17 @@ ChartJS.register(
   Legend
 );
 
-const BarChart = () => {
-  const [chartData, setChartData] = useState([]);
+const Yearchart = () => {
+  const [yearlyData, setYearlyData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchChartData = async () => {
       setLoading(true);
       try {
-        const response = await axiosInstanceAdmin.get(`${baseUrl}${graph}`);
+        const response = await axiosInstanceAdmin.get(`${baseUrl}${yeargraph}`);
         if (response.status === 200) {
-          setChartData(response.data);
+          setYearlyData(response.data);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -49,18 +45,14 @@ const BarChart = () => {
     fetchChartData();
   }, []);
 
-  const data = {
-    labels: chartData.map((item) => item.joining_month),
+  const yearlyChartData = {
+    labels: yearlyData.map((item) => item.joining_year),
     datasets: [{
       label: 'User Count',
-      data: chartData.map((item) => item.user_count),
-      backgroundColor: 'rgba(153, 102, 255, 0.2)',
-      borderColor: 'rgba(153, 102, 255, 1)',
-      borderWidth: 2,
-      pointBackgroundColor: 'rgba(153, 102, 255, 1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(153, 102, 255, 1)',
+      data: yearlyData.map((item) => item.user_count),
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      borderWidth: 2
     }]
   };
 
@@ -79,7 +71,7 @@ const BarChart = () => {
       },
       title: {
         display: true,
-        text: 'User Joining Month Statistics',
+        text: 'User Joining Year Statistics',
         font: {
           size: 24
         },
@@ -121,7 +113,7 @@ const BarChart = () => {
             <p className="text-center text-gray-500">Loading...</p>
           ) : (
             <div className="bg-white p-5 rounded-lg shadow-md" style={{ maxWidth: '800px', margin: 'auto', border: '2px solid #E5E7EB' }}>
-              <Bar data={data} height={400} options={options} />
+              <Bar data={yearlyChartData} height={400} options={options} />
             </div>
           )}
         </div>
@@ -130,4 +122,5 @@ const BarChart = () => {
   );
 }
 
-export default BarChart;
+export default Yearchart;
+

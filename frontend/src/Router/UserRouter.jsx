@@ -12,6 +12,8 @@ import Chat from '../Components/Chatting';
 import ProfileOfOthers from '../Components/ProfileOfOthers';
 import Emailverify from '../Pages/User/Emailverify';
 import OtpLogin from '../Pages/User/OtpLogin';
+import PostDetails from '../Pages/User/PostDetails';
+import NotFoundPage from '../Components/404Page';
 
 
 
@@ -27,6 +29,12 @@ const UserRouter = () => {
           
 
           <Route element={<Profile/>} path="/profile"/>
+
+          <Route path="/post/:postId" element={<PostDetails />} />
+
+          <Route path='*' element={<NotFoundPage/>} />
+
+
 
           <Route path='/myposts' element={<MyPosts/>} />
           <Route path='/user-saved-posts' element={<UserSavedPosts />} />

@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {useParams} from "react-router-dom";
 import Swal from "sweetalert2";
 import axiosInstanceAdmin   from '../../utils/axiosInstanceAdmin';
-import { Link } from 'react-router-dom';
+
 
 
 
@@ -44,36 +44,7 @@ function UserDetail(props){
   
    console.log(users.is_active,"user blocked or nott")
 
-    // const handleDeleteUser = async (id) => {
-    //   if (!id) {
-    //     console.error('User data is not available.');
-    //     return;
-    // }
-    // console.log("users.id:", id);
-    //     Swal.fire({
-    //       title: "Are you sure?",
-    //       icon: "warning",
-    //       showCancelButton: true,
-    //       confirmButtonColor: "#3085d6",
-    //       cancelButtonColor: "#d33",
-    //       confirmButtonText: "Yes",
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         const url = `${BASE_URL}${deleteuser}/${id}/`;
-    //         axiosInstanceAdmin
-    //           .delete(url)
-    //           .then((res) => {
-    //             console.log("user deleted");
-    //             setUserdeleted(true)
-    //             navigate('//AdminDash')
-    //           })
-    //           .catch((error) => {
-    //             console.log(error);
-    //           });
-    //       }
-    //     });
-    //   };
-
+ 
     
 
   

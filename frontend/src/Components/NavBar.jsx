@@ -18,7 +18,7 @@ const Navbar = ({ username, pic }) => {
     const fetchData = async () => {
       try {
         const data = await getNotificationsApi();
-        setNotification(data);
+        setNotification(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error(error);
       }

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import notificationSeenApi from "../api/NotificationSeenApi";
+import getNotificationPostDetailsApi from "../api/NotificationPostApi";
 
 const NotificationModal = ({
   isVisible,
@@ -39,18 +40,25 @@ const NotificationModal = ({
   };
 
   const onClick = async (notificationId, id, notificationType, postId) => {
+    console.log(postId,"fetchpostid");
     try {
       await notificationSeenApi(notificationId);
       removeNotification(notificationId);
       onClose();
-      if (
-        ["like", "comment", "post"].includes(notificationType)
-      ) {
-        // Redirect to the liked post page
-         navigate(`/post/${postId}`);
+
+      if (["like", "comment", "post"].includes(notificationType)) {
+        console.log(postId, "postid inside");
+        if (!postId) {
+          const response = await getNotificationPostDetailsApi(notificationId);
+          postId = response ? response.post_id : null;
+        }
+        if (postId) {
+          navigate(`/post/${postId}`);
+        } else {
+          console.error("Post ID not found");
+        }
       } else if (notificationType === "blocked") {
-        // Redirect to a special "blocked" page
-        // navigate(`/blocked`);
+        navigate(`/blocked`);
       }
     } catch (error) {
       console.error(error);

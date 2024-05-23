@@ -1,5 +1,7 @@
-export const baseUrl = "http://127.0.0.1:8000/";
-export const base = "http://127.0.0.1:8000";
+//export const baseUrl = "http://127.0.0.1:8000/";
+export const baseUrl = "https://backend.conectoo.site/";
+//export const base = "http://127.0.0.1:8000";
+export const base = "https://backend.conectoo.site";
 
 export const login = "api/login/";
 export const register = "api/register/"; 

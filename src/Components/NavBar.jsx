@@ -34,7 +34,7 @@ const Navbar = ({ username, pic }) => {
       const websocketProtocol =
         window.location.protocol === "https:" ? "wss://" : "ws://";
       const socket = new WebSocket(
-        `${websocketProtocol}//127.0.0.1:8000/ws/notification/?token=${token}`
+        `${websocketProtocol}//backend.conectoo.site/ws/notification/?token=${token}`
       );
 
       socket.onopen = () => {

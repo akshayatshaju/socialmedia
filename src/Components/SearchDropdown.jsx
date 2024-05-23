@@ -39,8 +39,8 @@ const UserSearchDropdown = ({
               <tr key={user.id}>
                 <td
                   style={{
-                    paddingLeft: "50px",
-                    paddingRight: "10px",
+                    paddingLeft: "40px",
+                    paddingRight: "5px",
                     width: "80px",
                   }}
                   className="py-4"
@@ -50,7 +50,7 @@ const UserSearchDropdown = ({
                       src={base + user.profile_pic}
                       alt={`${user.username}'s profile`}
                       style={{
-                        width: "39px",
+                        width: "45px",
                         height: "39px",
                         borderRadius: "50%",
                       }}

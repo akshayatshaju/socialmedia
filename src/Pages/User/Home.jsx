@@ -53,7 +53,7 @@ const Home = ({ googleuser }) => {
             <Navbar username={userName.username} pic={userName.profile_pic} />
             <div className='flex flex-row'>
               <SideBar></SideBar>
-              <Posts username={userName} posts={recommendedposts} pic={userName.profile_pic}  isMypost={true}/>
+              <Posts username={userName} posts={recommendedposts} pic={userName.profile_pic}  isMypost={false}/>
         
             </div>
           </div>
